@@ -1,646 +1,787 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tiệm Mì Cay - Game</title>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--red:#e63946;--red-dark:#c1121f;--red-light:#ff6b6b;--cream:#fdf6e3;--dark:#2b1810;--gold:#ffc300;--green:#06a77d}
-body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#3d0a0a,#5a1818 40%,#3d0a0a);min-height:100vh;color:#fff;padding:12px;overflow-x:hidden}
-.app{max-width:480px;margin:0 auto;padding-bottom:80px}
-.top-bar{display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.4);border-radius:14px;padding:10px 14px;margin-bottom:12px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1)}
-.top-item{text-align:center;flex:1}
-.top-label{font-size:10px;opacity:.6;font-weight:600;letter-spacing:.5px}
-.top-value{font-size:15px;font-weight:800;color:var(--gold);margin-top:2px}
-.top-value.stars{color:#ffc300}
-.shop-card{background:linear-gradient(135deg,var(--red) 0%,var(--red-dark) 100%);border-radius:20px;padding:20px;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(230,57,70,.4);margin-bottom:14px}
-.shop-card::before{content:'';position:absolute;top:-50%;right:-20%;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%);border-radius:50%}
-.lantern{position:absolute;font-size:24px;animation:sway 3s ease-in-out infinite}
-.lantern-1{top:12px;right:70px;animation-delay:0s}
-.lantern-2{top:12px;right:30px;animation-delay:.5s}
-@keyframes sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
-.shop-name{font-size:26px;font-weight:900;margin-bottom:6px;position:relative;z-index:1;text-shadow:2px 2px 0 rgba(0,0,0,.2);cursor:pointer}
-.shop-name:hover{opacity:.85}
-.shop-name .edit{font-size:14px;opacity:.6;margin-left:6px}
-.level-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;position:relative;z-index:1}
-.level-badge{background:rgba(0,0,0,.3);padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
-.xp-bar{flex:1;height:8px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden}
-.xp-fill{height:100%;background:linear-gradient(90deg,var(--gold),#ffed4e);width:0%;transition:width .4s;border-radius:10px}
-.xp-text{font-size:11px;font-weight:700;min-width:55px;text-align:right}
-.chapter{font-size:13px;opacity:.9;position:relative;z-index:1;margin-bottom:12px}
-.menu-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative;z-index:1;margin-top:12px}
-.btn-menu{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.15);color:#fff;padding:10px;border-radius:12px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
-.btn-menu:hover{background:rgba(0,0,0,.4);transform:translateY(-2px)}
-.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex-shrink:0;padding:10px 16px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#fff;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;transition:.2s;white-space:nowrap}
-.tab.active{background:var(--red);border-color:var(--red-light);box-shadow:0 4px 12px rgba(230,57,70,.5)}
-.panel{display:none;animation:fadeIn .3s}
-.panel.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;margin-bottom:12px;backdrop-filter:blur(10px)}
-.card-title{font-size:15px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.ingredient{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
-.ingredient:last-child{border-bottom:none}
-.ing-icon{font-size:28px;width:40px;text-align:center}
-.ing-info{flex:1}
-.ing-name{font-weight:700;font-size:14px}
-.ing-qty{font-size:12px;opacity:.7;margin-top:2px}
-.ing-qty.low{color:#ff6b6b;font-weight:700}
-.btn-buy{background:var(--green);color:#fff;border:none;padding:8px 14px;border-radius:10px;font-family:inherit;font-weight:700;font-size:12px;cursor:pointer;transition:.2s}
-.btn-buy:hover{background:#058a68;transform:scale(1.05)}
-.btn-buy:disabled{background:#555;cursor:not-allowed;transform:none}
-.cook-area{text-align:center;padding:20px 0}
-.pot{font-size:80px;display:inline-block;transition:.3s}
-.pot.cooking{animation:boil .5s ease-in-out infinite}
-@keyframes boil{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
-.cook-status{font-size:14px;font-weight:700;margin-top:12px;min-height:20px}
-.btn-cook{background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;border:none;padding:14px 40px;border-radius:14px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer;margin-top:14px;box-shadow:0 6px 20px rgba(230,57,70,.4);transition:.2s}
-.btn-cook:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(230,57,70,.6)}
-.btn-cook:disabled{background:#666;cursor:not-allowed;transform:none;box-shadow:none}
-.progress{height:10px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden;margin-top:12px;display:none}
-.progress.active{display:block}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#ffed4e);width:0%;transition:width .1s linear}
-.cooked-list{margin-top:16px}
-.cooked-item{display:flex;align-items:center;justify-content:space-between;background:rgba(255,195,0,.1);border:1px solid rgba(255,195,0,.3);border-radius:12px;padding:12px;margin-bottom:8px}
-.btn-sell{background:var(--gold);color:var(--dark);border:none;padding:8px 16px;border-radius:10px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;transition:.2s}
-.btn-sell:hover{background:#ffd700;transform:scale(1.05)}
-.mission{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;margin-bottom:10px}
-.mission-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.mission-name{font-weight:700;font-size:14px}
-.mission-progress{font-size:13px;font-weight:800;color:var(--gold)}
-.mission-reward{font-size:12px;opacity:.7}
-.mission.done{background:rgba(6,167,125,.15);border-color:var(--green)}
-.mission.done .mission-progress{color:var(--green)}
-.order{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.order-info{flex:1}
-.order-name{font-weight:700;font-size:14px;margin-bottom:4px}
-.order-detail{font-size:12px;opacity:.7}
-.btn-deliver{background:var(--green);color:#fff;border:none;padding:10px 16px;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;transition:.2s;white-space:nowrap;margin-left:10px}
-.btn-deliver:hover{background:#058a68;transform:scale(1.05)}
-.rank-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
-.rank-item:last-child{border-bottom:none}
-.rank-num{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
-.rank-item.me{background:rgba(255,195,0,.15);border-radius:12px;padding:12px;margin:0 -4px;padding-left:16px;padding-right:16px}
-.rank-item.me .rank-num{background:var(--gold);color:var(--dark)}
-.rank-item.top1 .rank-num{background:linear-gradient(135deg,#ffc300,#ff9500);color:#fff;box-shadow:0 0 15px rgba(255,195,0,.6)}
-.rank-name{flex:1;font-weight:700;font-size:14px}
-.rank-score{font-weight:800;color:var(--gold);font-size:13px}
-.btn-main{width:100%;background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;border:none;padding:18px;border-radius:16px;font-family:inherit;font-weight:900;font-size:17px;cursor:pointer;box-shadow:0 8px 25px rgba(230,57,70,.5);transition:.2s;margin-bottom:8px}
-.btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(230,57,70,.7)}
-.btn-main.closed{background:linear-gradient(135deg,#444,#222)}
-.daily-cost{text-align:center;font-size:12px;opacity:.6;margin-bottom:14px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px}
-.modal.show{display:flex;animation:fadeIn .2s}
-.modal-box{background:#2b1810;border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:24px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.6)}
-.modal-title{font-size:18px;font-weight:800;margin-bottom:16px;text-align:center}
-.modal-input{width:100%;padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,.15);background:rgba(0,0,0,.3);color:#fff;font-family:inherit;font-size:15px;outline:none;margin-bottom:14px;font-weight:600}
-.modal-input:focus{border-color:var(--red-light)}
-.modal-actions{display:flex;gap:10px}
-.btn-cancel,.btn-ok{flex:1;padding:12px;border-radius:12px;border:none;font-family:inherit;font-weight:800;cursor:pointer;font-size:14px}
-.btn-cancel{background:rgba(255,255,255,.1);color:#fff}
-.btn-ok{background:var(--red);color:#fff}
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dark);color:#fff;padding:12px 24px;border-radius:50px;font-weight:700;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:2000;opacity:0;transition:.3s;border:1px solid rgba(255,255,255,.15);white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.help-btn{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 6px 20px rgba(230,57,70,.5);z-index:50;font-family:inherit}
-.help-content{line-height:1.7;font-size:14px}
-.help-content p{margin-bottom:8px}
-.help-content strong{color:var(--gold)}
-@media(max-width:400px){.shop-name{font-size:22px}.top-value{font-size:13px}}
-</style>
-</head>
-<body>
-
-<div class="app">
-
-  <!-- TOP BAR -->
-  <div class="top-bar">
-    <div class="top-item">
-      <div class="top-label">NGÀY</div>
-      <div class="top-value" id="day">1</div>
-    </div>
-    <div class="top-item">
-      <div class="top-label">KẾT</div>
-      <div class="top-value" id="money">0đ</div>
-    </div>
-    <div class="top-item">
-      <div class="top-label">SAO</div>
-      <div class="top-value stars" id="stars">0.0★</div>
-    </div>
-  </div>
-
-  <!-- SHOP CARD -->
-  <div class="shop-card">
-    <span class="lantern lantern-1">🏮</span>
-    <span class="lantern lantern-2">🏮</span>
-    <div class="shop-name" onclick="renameShop()">
-      <span id="shop-name">Tiệm Mì Cay</span>
-      <span class="edit">✏️</span>
-    </div>
-    <div class="level-row">
-      <div class="level-badge">Cấp <span id="level">1</span></div>
-      <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
-      <div class="xp-text"><span id="xp">0</span>/<span id="xp-max">100</span> XP</div>
-    </div>
-    <div class="chapter">📖 Chương <span id="chapter">1</span>: Bếp nhà</div>
-    <div class="menu-buttons">
-      <button class="btn-menu" onclick="renameShop()">✏️ Đổi tên quán</button>
-      <button class="btn-menu" onclick="showTab('rank')">🏆 Bảng xếp hạng</button>
-      <button class="btn-menu" onclick="showToast('Tính năng sắp ra mắt!')">☕ Giải mì</button>
-      <button class="btn-menu" onclick="showToast('Tính năng sắp ra mắt!')">⚔️ PvP</button>
-    </div>
-  </div>
-
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('kho',this)">🛒 Kho</button>
-    <button class="tab" onclick="showTab('nau',this)">🍜 Nấu</button>
-    <button class="tab" onclick="showTab('ban',this)">💰 Bán</button>
-    <button class="tab" onclick="showTab('nhiemvu',this)">🎯 Nhiệm vụ</button>
-    <button class="tab" onclick="showTab('online',this)">🛵 Online</button>
-    <button class="tab" onclick="showTab('rank',this)">🏆 Xếp hạng</button>
-  </div>
-
-  <!-- PANEL: KHO -->
-  <div class="panel active" id="panel-kho">
-    <div class="card">
-      <div class="card-title">📦 Nguyên liệu trong kho</div>
-      <div id="kho-list"></div>
-    </div>
-  </div>
-
-  <!-- PANEL: NẤU -->
-  <div class="panel" id="panel-nau">
-    <div class="card">
-      <div class="card-title">🍳 Bếp nấu mì</div>
-      <div class="cook-area">
-        <div class="pot" id="pot">🍲</div>
-        <div class="cook-status" id="cook-status">Sẵn sàng nấu</div>
-        <div class="progress" id="progress"><div class="progress-fill" id="progress-fill"></div></div>
-        <button class="btn-cook" id="btn-cook" onclick="startCook()">🔥 Nấu mì (5s)</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">🍜 Mì đã nấu chín</div>
-      <div class="cooked-list" id="cooked-list">
-        <p style="opacity:.6;text-align:center;padding:20px 0">Chưa có mì chín</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL: BÁN -->
-  <div class="panel" id="panel-ban">
-    <div class="card">
-      <div class="card-title">💰 Bán mì cho khách</div>
-      <div id="sell-list">
-        <p style="opacity:.6;text-align:center;padding:20px 0">Nấu mì trước đã nhé!</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL: NHIỆM VỤ -->
-  <div class="panel" id="panel-nhiemvu">
-    <div class="card">
-      <div class="card-title">🎯 Nhiệm vụ ngày <span id="day-mission"></span></div>
-      <div id="mission-list"></div>
-    </div>
-  </div>
-
-  <!-- PANEL: ONLINE -->
-  <div class="panel" id="panel-online">
-    <div class="card">
-      <div class="card-title">🛵 Đơn giao online</div>
-      <div id="order-list">
-        <p style="opacity:.6;text-align:center;padding:20px 0">Chưa có đơn nào</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL: RANK -->
-  <div class="panel" id="panel-rank">
-    <div class="card">
-      <div class="card-title">🏆 Bảng xếp hạng tiệm mì</div>
-      <div id="rank-list"></div>
-    </div>
-  </div>
-
-  <!-- BUTTON MỞ CỬA -->
-  <button class="btn-main" id="btn-open" onclick="nextDay()">🌅 Mở cửa ngày <span id="next-day">1</span></button>
-  <div class="daily-cost">💡 Điện nước: 15k/ngày</div>
-
-</div>
-
-<!-- MODAL ĐỔI TÊN -->
-<div class="modal" id="modal-rename">
-  <div class="modal-box">
-    <div class="modal-title">✏️ Đổi tên tiệm</div>
-    <input type="text" class="modal-input" id="rename-input" maxlength="30" placeholder="VD: Tiệm Mì Cô Ba">
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal('modal-rename')">Hủy</button>
-      <button class="btn-ok" onclick="saveRename()">Lưu</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL HELP -->
-<div class="modal" id="modal-help">
-  <div class="modal-box">
-    <div class="modal-title">📖 Cách chơi</div>
-    <div class="help-content">
-      <p><strong>1. Mua nguyên liệu</strong> ở tab Kho</p>
-      <p><strong>2. Nấu mì</strong> ở tab Nấu (5 giây/tô)</p>
-      <p><strong>3. Bán mì</strong> cho khách ở tab Bán</p>
-      <p><strong>4. Hoàn thành nhiệm vụ</strong> để nhận thưởng</p>
-      <p><strong>5. Giao đơn online</strong> để kiếm thêm tiền</p>
-      <p><strong>6. Nhấn "Mở cửa ngày"</strong> để sang ngày mới</p>
-      <p style="margin-top:12px;opacity:.7;font-size:13px">💡 Mỗi ngày trừ 15k tiền điện nước. Kiếm nhiều tiền để lên cấp!</p>
-    </div>
-    <div class="modal-actions" style="margin-top:16px">
-      <button class="btn-ok" onclick="closeModal('modal-help')">Đã hiểu!</button>
-    </div>
-  </div>
-</div>
-
-<button class="help-btn" onclick="openModal('modal-help')">?</button>
-
-<script>
-// ===== DATA =====
+// =================== DATA ===================
 var INGREDIENTS = [
   {id:'mi', name:'Mì', emoji:'🍜', price:5000},
   {id:'thit', name:'Thịt bò', emoji:'🥩', price:8000},
   {id:'rau', name:'Rau cải', emoji:'🥬', price:3000},
-  {id:'trung', name:'Trứng', emoji:'🥚', price:2000},
-  {id:'ot', name:'Ớt tươi', emoji:'🌶️', price:1000}
+  {id:'ot', name:'Ớt tươi', emoji:'🌶️', price:1000},
+  {id:'trung', name:'Trứng', emoji:'🥚', price:2000}
 ];
-
-var RECIPE = {mi:1, thit:1, rau:1, ot:1};
-var MI_COST = 17000;
-var MI_PRICE = 35000;
-
-var state = {
-  day: 1,
-  money: 100000,
-  level: 1,
-  xp: 0,
-  xpMax: 100,
-  stars: 0,
-  shopName: 'Tiệm Mì Cay',
-  isOpen: true,
-  kho: {mi:5, thit:5, rau:5, trung:5, ot:5},
-  cooked: 0,
-  cooking: false,
-  missions: [],
-  orders: [],
-  totalSold: 0,
-  totalCooked: 0,
-  totalDelivered: 0
-};
-
-var rankData = [
-  {name:'Tiệm Mì Bà Tư', score:8500},
-  {name:'Mì Cay Thần Thánh', score:7200},
-  {name:'Quán Cô Hoa', score:5800},
-  {name:'Mì Cay 7 Cấp', score:4200},
-  {name:'Tiệm Mì Sinh Viên', score:3100}
+var SPICY = [
+  {level:1, name:'Cấp 1', mult:1.0, color:'#f4a261'},
+  {level:2, name:'Cấp 2', mult:1.15, color:'#e76f51'},
+  {level:3, name:'Cấp 3', mult:1.3, color:'#e63946'},
+  {level:4, name:'Cấp 4', mult:1.5, color:'#d62828'},
+  {level:5, name:'Cấp 5', mult:1.7, color:'#b71c1c'},
+  {level:6, name:'Cấp 6', mult:2.0, color:'#8b0000'},
+  {level:7, name:'Cấp 7', mult:2.5, color:'#5a0000'}
 ];
+var STAFF_TYPES = [
+  {id:'phubep', name:'Phụ bếp', emoji:'👨‍🍳', salary:50000, desc:'Tự động nấu 1 tô/8s', color:'#4a90e2'},
+  {id:'phucvu', name:'Phục vụ', emoji:'💁', salary:60000, desc:'Tự động bán 1 tô/6s', color:'#9b59b6'},
+  {id:'shipper', name:'Shipper', emoji:'🛵', salary:80000, desc:'Tự giao 1 đơn/10s', color:'#00b14f'},
+  {id:'bepTruong', name:'Bếp trưởng', emoji:'👨‍🍳', salary:150000, desc:'Nấu 2 tô/6s +10% giá', color:'#e63946'}
+];
+var UPGRADES = [
+  {id:'bep', name:'Bếp nấu', emoji:'🍳', base:50000, mult:2, max:5, desc:'Giảm 0.5s thời gian nấu', level:0},
+  {id:'kho', name:'Kho chứa', emoji:'📦', base:30000, mult:2, max:5, desc:'+10 slot nguyên liệu', level:0},
+  {id:'bang', name:'Bảng hiệu', emoji:'🎨', base:100000, mult:2.5, max:3, desc:'+0.5 sao khách hàng', level:0},
+  {id:'bangrap', name:'Bảng Grab', emoji:'📱', base:80000, mult:2, max:3, desc:'-20% phí Grab', level:0}
+];
+var DECORS = [
+  {id:'denlong', name:'Đèn lồng đỏ', emoji:'🏮', price:50000, stars:0.2},
+  {id:'caycanh', name:'Cây cảnh', emoji:'🌿', price:40000, stars:0.15},
+  {id:'tranh', name:'Tranh treo tường', emoji:'🖼️', price:80000, stars:0.3},
+  {id:'quat', name:'Quạt trần', emoji:'💨', price:120000, stars:0.4},
+  {id:'nhac', name:'Loa nhạc', emoji:'🎵', price:150000, stars:0.5},
+  {id:'dieukhac', name:'Tượng mèo may mắn', emoji:'🐱', price:200000, stars:0.7}
+];
+var CUSTOMERS = [
+  {name:'Khách dễ tính', emoji:'😊', patience:1.3, tip:0.1},
+  {name:'Khách khó tính', emoji:'😤', patience:0.7, tip:0.2},
+  {name:'Khách VIP', emoji:'🤵', patience:1.0, tip:0.5},
+  {name:'Khách quen', emoji:'😎', patience:1.5, tip:0.3}
+];
+var BASE_COOK_TIME = 5000;
+var BASE_MI_PRICE = 35000;
+var COST_PER_DAY = 15000;
+var GRAB_FEE = 15000;
 
-// ===== INIT =====
-function initMissions() {
-  state.missions = [
-    {id:1, name:'Nấu 6 tô mì', target:6, current:0, reward:20000, xp:30, done:false},
-    {id:2, name:'Bán 8 tô mì', target:8, current:0, reward:20000, xp:30, done:false},
-    {id:3, name:'Giao 2 đơn online', target:2, current:0, reward:20000, xp:30, done:false}
-  ];
+// =================== STATE ===================
+var state = null;
+
+function newGame() {
+  return {
+    day:1, money:100000, level:1, xp:0, xpMax:100, stars:0,
+    shopName:'Tiệm Mì Cay', chapter:1,
+    kho:{mi:5, thit:5, rau:5, ot:5, trung:5},
+    cooked:0, cooking:false,
+    missions:[], orders:[],
+    staff:[], upgrades:JSON.parse(JSON.stringify(UPGRADES)),
+    decors:[], totalSold:0, totalCooked:0, totalDelivered:0,
+    todayEarn:0, todaySpend:0, todaySold:0, todayCooked:0, todayDelivered:0,
+    grabCooldown:0, lastUpdate:Date.now()
+  };
 }
 
-function initOrders() {
-  state.orders = [];
-  var count = 2 + Math.floor(Math.random() * 3);
-  for (var i = 0; i < count; i++) {
-    state.orders.push({
-      id: Date.now() + i,
-      name: 'Khách ' + String.fromCharCode(65 + i),
-      qty: 1 + Math.floor(Math.random() * 2),
-      price: MI_PRICE + Math.floor(Math.random() * 10000)
-    });
+function loadGame() {
+  try {
+    var saved = localStorage.getItem('tiem_mi_cay_save');
+    if (saved) {
+      var s = JSON.parse(saved);
+      for (var key in newGame()) if (!(key in s)) s[key] = newGame()[key];
+      return s;
+    }
+  } catch(e) {}
+  return newGame();
+}
+
+// =================== SAVE ===================
+function saveGame() {
+  state.lastUpdate = Date.now();
+  localStorage.setItem('tiem_mi_cay_save', JSON.stringify(state));
+  showToast('💾 Đã lưu game!', 'success');
+}
+
+function resetGame() {
+  if (!confirm('Chơi lại từ đầu? Mất hết dữ liệu!')) return;
+  localStorage.removeItem('tiem_mi_cay_save');
+  state = newGame();
+  initMissions();
+  initOrders();
+  render();
+  showToast('🔄 Chơi lại từ đầu!');
+}
+
+// =================== HELPERS ===================
+function fmt(n){ return Math.floor(n).toLocaleString('vi-VN') + 'đ'; }
+function byId(id){ return document.getElementById(id); }
+
+function getCookTime() {
+  var up = state.upgrades.find(function(u){ return u.id==='bep'; });
+  return Math.max(1000, BASE_COOK_TIME - up.level * 500);
+}
+
+function getMiPrice(spicy) {
+  var mult = 1;
+  if (spicy) mult = SPICY[spicy-1].mult;
+  var up = state.upgrades.find(function(u){ return u.id==='bangrap'; });
+  // Bonus from bếp trưởng
+  var hasChef = state.staff.some(function(s){ return s.type==='bepTruong'; });
+  if (hasChef) mult *= 1.1;
+  return Math.floor(BASE_MI_PRICE * mult);
+}
+
+function getGrabFee() {
+  var up = state.upgrades.find(function(u){ return u.id==='bangrap'; });
+  var discount = up.level * 0.2;
+  return Math.floor(GRAB_FEE * (1 - discount));
+}
+
+function getStarBonus() {
+  var bonus = 0;
+  for (var i=0;i<state.decors.length;i++) {
+    var d = DECORS.find(function(x){ return x.id===state.decors[i]; });
+    if (d) bonus += d.stars;
   }
+  var bang = state.upgrades.find(function(u){ return u.id==='bang'; });
+  bonus += bang.level * 0.5;
+  return bonus;
 }
 
-// ===== FORMAT =====
-function fmt(n) { return n.toLocaleString('vi-VN') + 'đ'; }
-
-// ===== RENDER =====
+// =================== RENDER ===================
 function render() {
-  document.getElementById('day').textContent = state.day;
-  document.getElementById('money').textContent = fmt(state.money);
-  document.getElementById('level').textContent = state.level;
-  document.getElementById('xp').textContent = state.xp;
-  document.getElementById('xp-max').textContent = state.xpMax;
-  document.getElementById('stars').textContent = state.stars.toFixed(1) + '★';
-  document.getElementById('shop-name').textContent = state.shopName;
+  byId('day').textContent = state.day;
+  byId('money').textContent = fmt(state.money);
+  byId('level').textContent = state.level;
+  byId('xp').textContent = state.xp;
+  byId('xp-max').textContent = state.xpMax;
+  byId('stars').textContent = state.stars.toFixed(1) + '★';
+  byId('shop-name').textContent = state.shopName;
+  byId('chapter').textContent = state.chapter;
+  byId('staff-count').textContent = state.staff.length;
   document.title = state.shopName + ' - Game';
-  document.getElementById('next-day').textContent = state.day + 1;
 
-  var xpPct = (state.xp / state.xpMax) * 100;
-  document.getElementById('xp-fill').style.width = xpPct + '%';
+  byId('xp-fill').style.width = ((state.xp/state.xpMax)*100) + '%';
 
-  var btnOpen = document.getElementById('btn-open');
-  if (state.isOpen) {
-    btnOpen.textContent = '🌙 Đóng cửa & sang ngày ' + (state.day + 1);
-  } else {
-    btnOpen.textContent = '🌅 Mở cửa ngày ' + (state.day + 1);
+  var starsHtml = '';
+  for (var i=1;i<=5;i++) {
+    starsHtml += (i <= Math.floor(state.stars)) ? '⭐' : (i-0.5 <= state.stars ? '✨' : '☆');
   }
+  byId('stars-row').innerHTML = starsHtml;
+
+  byId('btn-open').textContent = '🌙 Đóng cửa & sang ngày ' + (state.day + 1);
+  var salaryTotal = 0;
+  for (var s=0;s<state.staff.length;s++) salaryTotal += state.staff[s].salary;
+  byId('daily-cost').textContent = '💡 Điện nước: ' + fmt(COST_PER_DAY) + ' • Lương NV: ' + fmt(salaryTotal);
 
   renderKho();
   renderCooked();
   renderSell();
+  renderStaff();
   renderMissions();
   renderOrders();
   renderRank();
+  renderUpgrades();
+  renderDecors();
+  renderStats();
+  renderGrab();
+  byId('cook-level').textContent = 'Thời gian: ' + (getCookTime()/1000) + 's/tô';
 }
 
 function renderKho() {
   var html = '';
-  for (var i = 0; i < INGREDIENTS.length; i++) {
+  for (var i=0;i<INGREDIENTS.length;i++) {
     var ing = INGREDIENTS[i];
     var qty = state.kho[ing.id] || 0;
     var low = qty <= 1 ? ' low' : '';
     var canBuy = state.money >= ing.price;
+    var canBuy10 = state.money >= ing.price*10;
     html += '<div class="ingredient">';
     html += '<div class="ing-icon">' + ing.emoji + '</div>';
     html += '<div class="ing-info">';
     html += '<div class="ing-name">' + ing.name + '</div>';
     html += '<div class="ing-qty' + low + '">Còn: ' + qty + '</div>';
     html += '</div>';
-    html += '<button class="btn-buy" ' + (canBuy ? '' : 'disabled') + ' onclick="buyIngredient(\'' + ing.id + '\')">+' + (ing.price/1000) + 'k</button>';
+    html += '<button class="btn-buy" ' + (canBuy ? '' : 'disabled') + ' onclick="buyIng(\'' + ing.id + '\',1)">+' + (ing.price/1000) + 'k</button>';
+    html += '<button class="btn-buy bulk" ' + (canBuy10 ? '' : 'disabled') + ' onclick="buyIng(\'' + ing.id + '\',10)">x10</button>';
     html += '</div>';
   }
-  document.getElementById('kho-list').innerHTML = html;
+  byId('kho-list').innerHTML = html;
 }
 
 function renderCooked() {
-  var el = document.getElementById('cooked-list');
+  var el = byId('cooked-list');
   if (state.cooked === 0) {
-    el.innerHTML = '<p style="opacity:.6;text-align:center;padding:20px 0">Chưa có mì chín</p>';
+    el.innerHTML = '<div class="empty">Chưa có mì chín</div>';
     return;
   }
-  el.innerHTML = '<div class="cooked-item"><div><strong>' + state.cooked + ' tô mì</strong><br><span style="font-size:12px;opacity:.7">Sẵn sàng bán</span></div><button class="btn-sell" onclick="sellMi()">💰 Bán ' + fmt(MI_PRICE) + '</button></div>';
+  el.innerHTML = '<div class="cooked-item"><div class="info"><strong>' + state.cooked + ' tô mì cấp 3</strong><small>Sẵn sàng bán</small></div><button class="btn-sell" onclick="sellMi()">Bán ' + fmt(BASE_MI_PRICE) + '</button></div>';
 }
 
 function renderSell() {
-  var el = document.getElementById('sell-list');
+  var el = byId('sell-list');
   if (state.cooked === 0) {
-    el.innerHTML = '<p style="opacity:.6;text-align:center;padding:20px 0">Nấu mì trước đã nhé!</p>';
+    el.innerHTML = '<div class="empty">Nấu mì trước đã nhé!</div>';
     return;
   }
-  el.innerHTML = '<div class="cooked-item"><div><strong>Có ' + state.cooked + ' tô mì chín</strong><br><span style="font-size:12px;opacity:.7">Giá bán: ' + fmt(MI_PRICE) + '/tô</span></div><button class="btn-sell" onclick="sellMi()">💰 Bán 1 tô</button></div>';
+  var html = '<div class="cooked-item"><div class="info"><strong>Có ' + state.cooked + ' tô mì chín</strong><small>Chọn cấp độ cay để bán</small></div></div>';
+  html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px">';
+  for (var i=0;i<SPICY.length;i++) {
+    var s = SPICY[i];
+    var price = getMiPrice(s.level);
+    html += '<button class="btn-sell" style="background:' + s.color + ';color:#fff;font-size:11px;padding:8px 4px" onclick="sellMi(' + s.level + ')">C' + s.level + '<br><small>' + (price/1000) + 'k</small></button>';
+  }
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderStaff() {
+  var hired = byId('staff-hired');
+  var salaryTotal = 0;
+  for (var i=0;i<state.staff.length;i++) salaryTotal += state.staff[i].salary;
+  byId('staff-info').textContent = state.staff.length + ' người • ' + fmt(salaryTotal) + '/ngày';
+
+  if (state.staff.length === 0) {
+    hired.innerHTML = '<div class="empty">Chưa thuê nhân viên nào</div>';
+  } else {
+    var html = '';
+    for (var j=0;j<state.staff.length;j++) {
+      var s = state.staff[j];
+      var t = STAFF_TYPES.find(function(x){ return x.id===s.type; });
+      html += '<div class="staff">';
+      html += '<div class="staff-avatar">' + t.emoji + '</div>';
+      html += '<div class="staff-info">';
+      html += '<div class="staff-name">' + s.name + '</div>';
+      html += '<div class="staff-role">' + t.name + ' • ' + t.desc + '</div>';
+      html += '<div class="staff-salary">💰 ' + fmt(t.salary) + '/ngày</div>';
+      html += '</div>';
+      html += '<div class="staff-actions"><button class="btn-fire" onclick="fireStaff(' + j + ')">Sa thải</button></div>';
+      html += '</div>';
+    }
+    hired.innerHTML = html;
+  }
+
+  var shopHtml = '';
+  for (var k=0;k<STAFF_TYPES.length;k++) {
+    var st = STAFF_TYPES[k];
+    var canHire = state.money >= st.salary * 2;
+    shopHtml += '<div class="staff">';
+    shopHtml += '<div class="staff-avatar" style="background:' + st.color + '33;border:1px solid ' + st.color + '">' + st.emoji + '</div>';
+    shopHtml += '<div class="staff-info">';
+    shopHtml += '<div class="staff-name">' + st.name + '</div>';
+    shopHtml += '<div class="staff-role">' + st.desc + '</div>';
+    shopHtml += '<div class="staff-salary">💰 ' + fmt(st.salary) + '/ngày</div>';
+    shopHtml += '</div>';
+    shopHtml += '<button class="btn-hire" ' + (canHire ? '' : 'disabled') + ' onclick="hireStaff(\'' + st.id + '\')">Thuê</button>';
+    shopHtml += '</div>';
+  }
+  byId('staff-shop').innerHTML = shopHtml;
 }
 
 function renderMissions() {
-  var el = document.getElementById('mission-list');
   var html = '';
-  for (var i = 0; i < state.missions.length; i++) {
+  for (var i=0;i<state.missions.length;i++) {
     var m = state.missions[i];
     var cls = m.done ? 'mission done' : 'mission';
     html += '<div class="' + cls + '">';
-    html += '<div class="mission-head">';
-    html += '<div class="mission-name">' + m.name + '</div>';
-    html += '<div class="mission-progress">' + m.current + '/' + m.target + (m.done ? ' ✓' : '') + '</div>';
-    html += '</div>';
+    html += '<div class="mission-head"><div class="mission-name">' + m.name + '</div>';
+    html += '<div class="mission-progress">' + m.current + '/' + m.target + (m.done ? ' ✓' : '') + '</div></div>';
     html += '<div class="mission-reward">Thưởng ' + (m.reward/1000) + 'k • +' + m.xp + ' XP</div>';
+    html += '</div>';
+  }
+  byId('mission-list').innerHTML = html;
+}
+
+function renderOrders() {
+  var el = byId('order-list');
+  if (state.orders.length === 0) {
+    el.innerHTML = '<div class="empty">Hết đơn rồi, mai quay lại nhé!</div>';
+    return;
+  }
+  var html = '';
+  for (var i=0;i<state.orders.length;i++) {
+    var o = state.orders[i];
+    var sp = SPICY[o.spicy-1];
+    var canDeliver = state.cooked >= o.qty;
+    html += '<div class="order">';
+    html += '<div class="order-info">';
+    html += '<div class="order-name">' + o.cust.emoji + ' ' + o.cust.name + '</div>';
+    html += '<div class="order-detail">' + o.qty + ' tô <span class="spicy-badge" style="background:' + sp.color + '">' + sp.name + '</span> • ' + fmt(o.price) + '</div>';
+    html += '</div>';
+    html += '<button class="btn-deliver" ' + (canDeliver ? '' : 'disabled') + ' onclick="deliverOrder(' + o.id + ')">Giao</button>';
     html += '</div>';
   }
   el.innerHTML = html;
 }
 
-function renderOrders() {
-  var el = document.getElementById('order-list');
+function renderGrab() {
+  var el = byId('grab-panel');
   if (state.orders.length === 0) {
-    el.innerHTML = '<p style="opacity:.6;text-align:center;padding:20px 0">Hết đơn rồi, mai quay lại nhé!</p>';
+    el.innerHTML = '<div class="empty">Không có đơn để giao</div>';
     return;
   }
-  var html = '';
-  for (var i = 0; i < state.orders.length; i++) {
-    var o = state.orders[i];
-    html += '<div class="order">';
-    html += '<div class="order-info">';
-    html += '<div class="order-name">🛵 ' + o.name + '</div>';
-    html += '<div class="order-detail">' + o.qty + ' tô mì • ' + fmt(o.price) + '</div>';
-    html += '</div>';
-    html += '<button class="btn-deliver" onclick="deliverOrder(' + o.id + ')">Giao</button>';
-    html += '</div>';
-  }
+  var fee = getGrabFee();
+  var html = '<div class="grab-card">';
+  html += '<div class="grab-title">🛵 GrabExpress giao hộ</div>';
+  html += '<div class="grab-desc">Giao ngay tất cả đơn còn lại • Phí ' + fmt(fee) + '/đơn</div>';
+  html += '<button class="btn-grab" ' + (state.orders.length>0 ? '' : 'disabled') + ' onclick="grabDeliverAll()">🚀 Đặt Grab giao hết (' + state.orders.length + ' đơn)</button>';
+  html += '</div>';
   el.innerHTML = html;
 }
 
 function renderRank() {
-  var all = rankData.slice();
-  all.push({name: state.shopName, score: state.money, me: true});
-  all.sort(function(a,b){ return b.score - a.score; });
+  var bots = [
+    {name:'Tiệm Mì Bà Tư', score:500000 + state.day*15000},
+    {name:'Mì Cay Thần Thánh', score:400000 + state.day*12000},
+    {name:'Quán Cô Hoa', score:300000 + state.day*10000},
+    {name:'Mì Cay 7 Cấp', score:200000 + state.day*8000},
+    {name:'Tiệm Mì Sinh Viên', score:100000 + state.day*5000}
+  ];
+  var all = bots.slice();
+  all.push({name: state.shopName, score: state.money + state.totalSold*35000, me:true});
+  all.sort(function(a,b){ return b.score-a.score; });
   var html = '';
-  for (var i = 0; i < all.length; i++) {
+  for (var i=0;i<all.length;i++) {
     var r = all[i];
     var cls = 'rank-item';
     if (r.me) cls += ' me';
-    if (i === 0) cls += ' top1';
+    if (i===0) cls += ' top1';
+    if (i===1) cls += ' top2';
+    if (i===2) cls += ' top3';
     html += '<div class="' + cls + '">';
     html += '<div class="rank-num">' + (i+1) + '</div>';
     html += '<div class="rank-name">' + r.name + (r.me ? ' (bạn)' : '') + '</div>';
     html += '<div class="rank-score">' + fmt(r.score) + '</div>';
     html += '</div>';
   }
-  document.getElementById('rank-list').innerHTML = html;
+  byId('rank-list').innerHTML = html;
 }
 
-// ===== ACTIONS =====
-function buyIngredient(id) {
-  var ing = null;
-  for (var i = 0; i < INGREDIENTS.length; i++) if (INGREDIENTS[i].id === id) { ing = INGREDIENTS[i]; break; }
+function renderUpgrades() {
+  var html = '';
+  for (var i=0;i<state.upgrades.length;i++) {
+    var u = state.upgrades[i];
+    var info = UPGRADES.find(function(x){ return x.id===u.id; });
+    var cost = Math.floor(info.base * Math.pow(info.mult, u.level));
+    var isMax = u.level >= info.max;
+    var canBuy = !isMax && state.money >= cost;
+    html += '<div class="upgrade-item">';
+    html += '<div class="upgrade-icon">' + info.emoji + '</div>';
+    html += '<div class="upgrade-info">';
+    html += '<div class="upgrade-name">' + info.name + '</div>';
+    html += '<div class="upgrade-desc">' + info.desc + '</div>';
+    html += '<div class="upgrade-level">Lv ' + u.level + '/' + info.max + '</div>';
+    html += '</div>';
+    if (isMax) {
+      html += '<button class="btn-upgrade" disabled>MAX</button>';
+    } else {
+      html += '<button class="btn-upgrade" ' + (canBuy ? '' : 'disabled') + ' onclick="buyUpgrade(\'' + u.id + '\')">' + fmt(cost) + '</button>';
+    }
+    html += '</div>';
+  }
+  byId('upgrade-list').innerHTML = html;
+}
+
+function renderDecors() {
+  var html = '';
+  for (var i=0;i<DECORS.length;i++) {
+    var d = DECORS[i];
+    var owned = state.decors.indexOf(d.id) > -1;
+    var canBuy = !owned && state.money >= d.price;
+    html += '<div class="decor-item ' + (owned ? 'owned' : '') + '">';
+    html += '<div class="decor-icon">' + d.emoji + '</div>';
+    html += '<div class="decor-info">';
+    html += '<div class="decor-name">' + d.name + '</div>';
+    html += '<div class="decor-desc">+' + d.stars + ' sao khách hàng</div>';
+    html += '</div>';
+    if (owned) {
+      html += '<button class="btn-decor" disabled>✓ Đã mua</button>';
+    } else {
+      html += '<button class="btn-decor" ' + (canBuy ? '' : 'disabled') + ' onclick="buyDecor(\'' + d.id + '\')">' + fmt(d.price) + '</button>';
+    }
+    html += '</div>';
+  }
+  byId('decor-list').innerHTML = html;
+}
+
+function renderStats() {
+  var html = '';
+  html += '<div class="stat-row"><span>🍜 Nấu hôm nay</span><span>' + state.todayCooked + ' tô</span></div>';
+  html += '<div class="stat-row"><span>💰 Bán hôm nay</span><span>' + state.todaySold + ' tô</span></div>';
+  html += '<div class="stat-row"><span>🛵 Giao hôm nay</span><span>' + state.todayDelivered + ' đơn</span></div>';
+  html += '<div class="stat-row"><span>📈 Thu hôm nay</span><span>+' + fmt(state.todayEarn) + '</span></div>';
+  html += '<div class="stat-row"><span>📉 Chi hôm nay</span><span>-' + fmt(state.todaySpend) + '</span></div>';
+  html += '<div class="stat-row"><span>🏆 Tổng tô bán</span><span>' + state.totalSold + '</span></div>';
+  byId('stats-today').innerHTML = html;
+}
+
+// =================== ACTIONS ===================
+function buyIng(id, qty) {
+  var ing = INGREDIENTS.find(function(x){ return x.id===id; });
   if (!ing) return;
-  if (state.money < ing.price) { showToast('Không đủ tiền!'); return; }
-  state.money -= ing.price;
-  state.kho[id]++;
+  var total = ing.price * qty;
+  if (state.money < total) { showToast('Không đủ tiền!', 'error'); return; }
+  state.money -= total;
+  state.todaySpend += total;
+  state.kho[id] = (state.kho[id] || 0) + qty;
   render();
-  showToast('Đã mua ' + ing.name + ' ✓');
+  showToast('Đã mua ' + qty + ' ' + ing.name, 'success');
 }
 
 function startCook() {
   if (state.cooking) return;
-  // Check ingredients
-  for (var key in RECIPE) {
-    if ((state.kho[key] || 0) < RECIPE[key]) {
-      showToast('Thiếu ' + key + '! Mua thêm ở tab Kho');
+  var keys = Object.keys(state.kho);
+  var need = {mi:1, thit:1, rau:1, ot:1};
+  for (var k in need) {
+    if ((state.kho[k] || 0) < need[k]) {
+      showToast('Thiếu ' + k + '! Mua thêm ở tab Kho', 'error');
       return;
     }
   }
   state.cooking = true;
-  var btn = document.getElementById('btn-cook');
-  var pot = document.getElementById('pot');
-  var status = document.getElementById('cook-status');
-  var prog = document.getElementById('progress');
-  var fill = document.getElementById('progress-fill');
-
+  var duration = getCookTime();
+  var pot = byId('pot'), status = byId('cook-status'), prog = byId('progress'), fill = byId('progress-fill'), btn = byId('btn-cook');
   btn.disabled = true;
   pot.classList.add('cooking');
   status.textContent = '🔥 Đang nấu...';
   prog.classList.add('active');
   fill.style.width = '0%';
-
-  var duration = 5000;
   var start = Date.now();
-  var interval = setInterval(function() {
+  var timer = setInterval(function() {
     var elapsed = Date.now() - start;
-    var pct = Math.min(100, (elapsed / duration) * 100);
-    fill.style.width = pct + '%';
+    fill.style.width = Math.min(100, (elapsed/duration)*100) + '%';
     if (elapsed >= duration) {
-      clearInterval(interval);
+      clearInterval(timer);
       finishCook();
     }
   }, 50);
 }
 
 function finishCook() {
-  for (var key in RECIPE) state.kho[key] -= RECIPE[key];
+  var need = {mi:1, thit:1, rau:1, ot:1};
+  for (var k in need) state.kho[k] -= need[k];
   state.cooked++;
   state.totalCooked++;
+  state.todayCooked++;
   state.cooking = false;
   state.xp += 5;
-  if (state.xp >= state.xpMax) levelUp();
-
-  // Update mission 1
-  updateMission(1, 1);
-
-  var pot = document.getElementById('pot');
-  var btn = document.getElementById('btn-cook');
-  var status = document.getElementById('cook-status');
-  var prog = document.getElementById('progress');
+  while (state.xp >= state.xpMax) levelUp();
+  updateMission('cook', 1);
+  var pot = byId('pot'), btn = byId('btn-cook'), status = byId('cook-status'), prog = byId('progress');
   pot.classList.remove('cooking');
   pot.textContent = '🍜';
   btn.disabled = false;
-  status.textContent = '✅ Mì đã chín! Bán ngay thôi';
+  status.textContent = '✅ Mì chín!';
   prog.classList.remove('active');
-  setTimeout(function(){ pot.textContent = '🍲'; }, 1000);
-
+  setTimeout(function(){ pot.textContent = '🍲'; }, 800);
   render();
-  showToast('🍜 Nấu xong 1 tô mì!');
+  showToast('🍜 Nấu xong!', 'success');
 }
 
-function sellMi() {
-  if (state.cooked <= 0) { showToast('Chưa có mì chín!'); return; }
+function sellMi(spicyLevel) {
+  if (state.cooked <= 0) { showToast('Chưa có mì chín!', 'error'); return; }
+  var lvl = spicyLevel || 3;
+  var price = getMiPrice(lvl);
   state.cooked--;
-  state.money += MI_PRICE;
+  state.money += price;
+  state.todayEarn += price;
   state.totalSold++;
+  state.todaySold++;
   state.xp += 3;
-  if (state.xp >= state.xpMax) levelUp();
-
-  updateMission(2, 1);
-
+  while (state.xp >= state.xpMax) levelUp();
+  updateMission('sell', 1);
   render();
-  showToast('💰 Bán được +' + fmt(MI_PRICE));
+  showToast('💰 Bán cấp ' + lvl + ' +' + fmt(price), 'success');
 }
 
 function deliverOrder(orderId) {
   var idx = -1;
-  for (var i = 0; i < state.orders.length; i++) if (state.orders[i].id === orderId) { idx = i; break; }
-  if (idx < 0) return;
+  for (var i=0;i<state.orders.length;i++) if (state.orders[i].id===orderId) { idx=i; break; }
+  if (idx<0) return;
   var o = state.orders[idx];
-  if (state.cooked < o.qty) { showToast('Cần ' + o.qty + ' tô mì chín!'); return; }
+  if (state.cooked < o.qty) { showToast('Cần ' + o.qty + ' tô mì!', 'error'); return; }
   state.cooked -= o.qty;
   state.money += o.price;
+  state.todayEarn += o.price;
   state.totalDelivered++;
+  state.todayDelivered++;
   state.xp += 8;
-  if (state.xp >= state.xpMax) levelUp();
-  state.orders.splice(idx, 1);
-  updateMission(3, 1);
+  while (state.xp >= state.xpMax) levelUp();
+  state.orders.splice(idx,1);
+  updateMission('deliver', 1);
   render();
-  showToast('🛵 Giao đơn thành công! +' + fmt(o.price));
+  showToast('🛵 Giao thành công +' + fmt(o.price), 'success');
+}
+
+function grabDeliverAll() {
+  if (state.orders.length === 0) { showToast('Không có đơn!'); return; }
+  var fee = getGrabFee();
+  var count = state.orders.length;
+  var totalFee = fee * count;
+  if (state.money < totalFee) { showToast('Cần ' + fmt(totalFee) + ' để trả Grab!', 'error'); return; }
+  var totalCookedNeeded = 0;
+  for (var i=0;i<state.orders.length;i++) totalCookedNeeded += state.orders[i].qty;
+  if (state.cooked < totalCookedNeeded) {
+    showToast('Cần ' + totalCookedNeeded + ' tô mì chín!', 'error');
+    return;
+  }
+  state.money -= totalFee;
+  state.todaySpend += totalFee;
+  var earn = 0;
+  for (var j=0;j<state.orders.length;j++) {
+    earn += state.orders[j].price;
+    state.cooked -= state.orders[j].qty;
+    state.totalDelivered++;
+    state.todayDelivered++;
+    state.xp += 8;
+    updateMission('deliver', 1);
+  }
+  state.money += earn;
+  state.todayEarn += earn;
+  var deliveredCount = state.orders.length;
+  state.orders = [];
+  while (state.xp >= state.xpMax) levelUp();
+  render();
+  showToast('🚀 Grab giao ' + deliveredCount + ' đơn! +' + fmt(earn) + ' -' + fmt(totalFee) + ' phí', 'success');
+}
+
+function hireStaff(typeId) {
+  var t = STAFF_TYPES.find(function(x){ return x.id===typeId; });
+  if (!t) return;
+  if (state.money < t.salary * 2) { showToast('Cần ' + fmt(t.salary*2) + ' để thuê!', 'error'); return; }
+  var names = ['An', 'Bình', 'Cường', 'Dũng', 'Em', 'Phúc', 'Giang', 'Hà', 'Inh', 'Khang', 'Linh', 'Minh', 'Nam', 'Oanh', 'Phương', 'Quỳnh'];
+  var name = names[Math.floor(Math.random()*names.length)] + ' ' + Math.floor(Math.random()*100);
+  state.staff.push({type:typeId, name:name, salary:t.salary, lastAction:Date.now()});
+  render();
+  showToast('👥 Đã thuê ' + t.name + '!', 'success');
+}
+
+function fireStaff(idx) {
+  if (!confirm('Sa thải nhân viên này?')) return;
+  var s = state.staff[idx];
+  var t = STAFF_TYPES.find(function(x){ return x.id===s.type; });
+  state.staff.splice(idx,1);
+  render();
+  showToast('👋 Đã sa thải ' + t.name, 'error');
+}
+
+function buyUpgrade(id) {
+  var u = state.upgrades.find(function(x){ return x.id===id; });
+  var info = UPGRADES.find(function(x){ return x.id===id; });
+  if (!u || u.level >= info.max) return;
+  var cost = Math.floor(info.base * Math.pow(info.mult, u.level));
+  if (state.money < cost) { showToast('Không đủ tiền!', 'error'); return; }
+  state.money -= cost;
+  state.todaySpend += cost;
+  u.level++;
+  render();
+  showToast('📈 Nâng cấp ' + info.name + ' Lv' + u.level + '!', 'success');
+}
+
+function buyDecor(id) {
+  var d = DECORS.find(function(x){ return x.id===id; });
+  if (!d || state.decors.indexOf(id) > -1) return;
+  if (state.money < d.price) { showToast('Không đủ tiền!', 'error'); return; }
+  state.money -= d.price;
+  state.todaySpend += d.price;
+  state.decors.push(id);
+  render();
+  showToast('🎨 Đã mua ' + d.name + '! +' + d.stars + '⭐', 'success');
+}
+
+// =================== MISSIONS ===================
+function initMissions() {
+  var mult = 1 + Math.floor(state.day / 5) * 0.5;
+  state.missions = [
+    {id:'cook', name:'Nấu ' + Math.floor(6*mult) + ' tô mì', target:Math.floor(6*mult), current:0, reward:20000, xp:30, done:false},
+    {id:'sell', name:'Bán ' + Math.floor(8*mult) + ' tô mì', target:Math.floor(8*mult), current:0, reward:25000, xp:30, done:false},
+    {id:'deliver', name:'Giao ' + Math.floor(2*mult) + ' đơn', target:Math.floor(2*mult), current:0, reward:30000, xp:40, done:false}
+  ];
 }
 
 function updateMission(id, inc) {
-  for (var i = 0; i < state.missions.length; i++) {
+  for (var i=0;i<state.missions.length;i++) {
     var m = state.missions[i];
-    if (m.id === id && !m.done) {
+    if (m.id===id && !m.done) {
       m.current += inc;
       if (m.current >= m.target) {
         m.current = m.target;
         m.done = true;
         state.money += m.reward;
         state.xp += m.xp;
-        if (state.xp >= state.xpMax) levelUp();
-        showToast('🎉 Hoàn thành: ' + m.name + '! +' + fmt(m.reward));
+        while (state.xp >= state.xpMax) levelUp();
+        showToast('🎉 Xong NV: ' + m.name + '! +' + fmt(m.reward), 'gold');
       }
       break;
     }
   }
 }
 
+// =================== ORDERS ===================
+function initOrders() {
+  state.orders = [];
+  var count = 2 + Math.floor(Math.random() * 3);
+  for (var i=0;i<count;i++) {
+    var cust = CUSTOMERS[Math.floor(Math.random()*CUSTOMERS.length)];
+    var spicy = 1 + Math.floor(Math.random() * Math.min(7, state.level + 3));
+    var qty = 1 + Math.floor(Math.random() * 2);
+    var basePrice = getMiPrice(spicy) * qty;
+    var bonus = 1 + cust.tip + getStarBonus() * 0.1;
+    state.orders.push({
+      id: Date.now() + i + Math.random(),
+      cust: cust, qty: qty, spicy: spicy,
+      price: Math.floor(basePrice * bonus)
+    });
+  }
+}
+
+// =================== LEVEL ===================
 function levelUp() {
   state.xp -= state.xpMax;
   state.level++;
   state.xpMax = Math.floor(state.xpMax * 1.5);
-  state.stars = Math.min(5, state.stars + 0.5);
-  showToast('⭐ LÊN CẤP ' + state.level + '!');
+  state.stars = Math.min(5, state.stars + 0.3);
+  if (state.level % 5 === 0) {
+    state.chapter++;
+    showToast('📖 Chương ' + state.chapter + ' mở khoá!', 'gold');
+  }
+  showToast('⭐ LÊN CẤP ' + state.level + '!', 'gold');
 }
 
+// =================== NEXT DAY ===================
 function nextDay() {
-  var cost = 15000;
-  if (state.money < cost) {
-    showToast('Không đủ tiền điện nước!');
+  var salaryTotal = 0;
+  for (var i=0;i<state.staff.length;i++) salaryTotal += state.staff[i].salary;
+  var totalCost = COST_PER_DAY + salaryTotal;
+  if (state.money < totalCost) {
+    showToast('Cần ' + fmt(totalCost) + ' để trả chi phí!', 'error');
     return;
   }
-  state.money -= cost;
+  state.money -= totalCost;
   state.day++;
-  state.isOpen = true;
+  state.todayEarn = 0;
+  state.todaySpend = 0;
+  state.todaySold = 0;
+  state.todayCooked = 0;
+  state.todayDelivered = 0;
   initMissions();
   initOrders();
   render();
-  showToast('🌅 Ngày ' + state.day + ' bắt đầu!');
+  saveGame();
+  showToast('🌅 Ngày ' + state.day + ' bắt đầu!', 'success');
+  randomEvent();
 }
 
-// ===== TABS =====
-function showTab(name, el) {
-  var panels = document.querySelectorAll('.panel');
-  for (var i = 0; i < panels.length; i++) panels[i].classList.remove('active');
-  document.getElementById('panel-' + name).classList.add('active');
+// =================== RANDOM EVENT ===================
+function randomEvent() {
+  if (Math.random() > 0.35) return;
+  var events = [
+    {title:'🎉 Khách đông', desc:'Hôm nay khách đông gấp đôi! Có thêm 3 đơn online.', action:function(){
+      initOrders(); initOrders(); initOrders();
+    }},
+    {title:'💸 Khuyến mãi', desc:'Quán tặng 20k tiền mặt cho khách may mắn!', action:function(){
+      state.money += 20000;
+    }},
+    {title:'🔧 Bếp hỏng', desc:'Bếp gặp sự cố, mất 30k sửa chữa.', action:function(){
+      state.money = Math.max(0, state.money - 30000);
+    }},
+    {title:'⭐ Khách khen', desc:'Khách để lại 5 sao! +0.3 sao quán.', action:function(){
+      state.stars = Math.min(5, state.stars + 0.3);
+    }},
+    {title:'🎁 Quà tặng', desc:'Nhà cung cấp tặng 5 nguyên liệu mỗi loại!', action:function(){
+      for (var k in state.kho) state.kho[k] += 5;
+    }}
+  ];
+  var ev = events[Math.floor(Math.random()*events.length)];
+  ev.action();
+  byId('event-title').textContent = ev.title;
+  byId('event-desc').textContent = ev.desc;
+  openModal('modal-event');
+  render();
+}
 
-  var tabs = document.querySelectorAll('.tab');
-  for (var j = 0; j < tabs.length; j++) tabs[j].classList.remove('active');
-  if (el) {
-    el.classList.add('active');
-  } else {
-    // Tìm tab tương ứng
-    for (var k = 0; k < tabs.length; k++) {
-      if (tabs[k].getAttribute('onclick').indexOf("'" + name + "'") > -1) {
-        tabs[k].classList.add('active');
-        break;
+// =================== STAFF AUTO ===================
+setInterval(function() {
+  if (!state) return;
+  var now = Date.now();
+  for (var i=0;i<state.staff.length;i++) {
+    var s = state.staff[i];
+    var elapsed = now - s.lastAction;
+    if (s.type === 'phubep' && elapsed >= 8000) {
+      if (state.kho.mi>=1 && state.kho.thit>=1 && state.kho.rau>=1 && state.kho.ot>=1) {
+        state.kho.mi--; state.kho.thit--; state.kho.rau--; state.kho.ot--;
+        state.cooked++;
+        state.totalCooked++;
+        state.todayCooked++;
+        state.xp += 5;
+        while (state.xp >= state.xpMax) levelUp();
+        updateMission('cook', 1);
+        s.lastAction = now;
+        render();
+        showToast('👨‍🍳 Phụ bếp nấu 1 tô mì!', 'success');
+      }
+    }
+    if (s.type === 'phucvu' && elapsed >= 6000) {
+      if (state.cooked > 0) {
+        state.cooked--;
+        var price = getMiPrice(3);
+        state.money += price;
+        state.todayEarn += price;
+        state.totalSold++;
+        state.todaySold++;
+        state.xp += 3;
+        while (state.xp >= state.xpMax) levelUp();
+        updateMission('sell', 1);
+        s.lastAction = now;
+        render();
+        showToast('💁 Phục vụ bán 1 tô +' + fmt(price), 'success');
+      }
+    }
+    if (s.type === 'shipper' && elapsed >= 10000) {
+      if (state.orders.length > 0) {
+        var o = state.orders[0];
+        if (state.cooked >= o.qty) {
+          state.cooked -= o.qty;
+          state.money += o.price;
+          state.todayEarn += o.price;
+          state.totalDelivered++;
+          state.todayDelivered++;
+          state.xp += 8;
+          while (state.xp >= state.xpMax) levelUp();
+          state.orders.splice(0,1);
+          updateMission('deliver', 1);
+          s.lastAction = now;
+          render();
+          showToast('🛵 Shipper giao đơn +' + fmt(o.price), 'success');
+        }
+      }
+    }
+    if (s.type === 'bepTruong' && elapsed >= 6000) {
+      if (state.kho.mi>=2 && state.kho.thit>=2 && state.kho.rau>=2 && state.kho.ot>=2) {
+        state.kho.mi-=2; state.kho.thit-=2; state.kho.rau-=2; state.kho.ot-=2;
+        state.cooked+=2;
+        state.totalCooked+=2;
+        state.todayCooked+=2;
+        state.xp += 10;
+        while (state.xp >= state.xpMax) levelUp();
+        updateMission('cook', 2);
+        s.lastAction = now;
+        render();
+        showToast('👨‍🍳 Bếp trưởng nấu 2 tô mì!', 'gold');
       }
     }
   }
+}, 1000);
+
+// =================== TABS ===================
+function showTab(name, el) {
+  var panels = document.querySelectorAll('.panel');
+  for (var i=0;i<panels.length;i++) panels[i].classList.remove('active');
+  byId('panel-' + name).classList.add('active');
+  var tabs = document.querySelectorAll('.tab');
+  for (var j=0;j<tabs.length;j++) tabs[j].classList.remove('active');
+  if (el) el.classList.add('active');
 }
 
-// ===== MODAL =====
-function openModal(id) { document.getElementById(id).classList.add('show'); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-
+// =================== MODAL ===================
+function openModal(id) { byId(id).classList.add('show'); }
+function closeModal(id) { byId(id).classList.remove('show'); }
 function renameShop() {
-  document.getElementById('rename-input').value = state.shopName;
+  byId('rename-input').value = state.shopName;
   openModal('modal-rename');
-  setTimeout(function(){ document.getElementById('rename-input').focus(); }, 100);
+  setTimeout(function(){ byId('rename-input').focus(); }, 100);
 }
-
 function saveRename() {
-  var v = document.getElementById('rename-input').value.trim();
-  if (!v) { showToast('Tên không được trống!'); return; }
+  var v = byId('rename-input').value.trim();
+  if (!v) { showToast('Tên không được trống!', 'error'); return; }
   state.shopName = v;
   closeModal('modal-rename');
   render();
-  showToast('✏️ Đã đổi tên tiệm!');
+  showToast('✏️ Đã đổi tên tiệm!', 'success');
 }
 
-// ===== TOAST =====
-function showToast(msg) {
+// =================== TOAST ===================
+function showToast(msg, type) {
   var t = document.getElementById('toast-global');
   if (!t) {
     t = document.createElement('div');
@@ -648,17 +789,18 @@ function showToast(msg) {
     t.className = 'toast';
     document.body.appendChild(t);
   }
+  t.className = 'toast';
+  if (type) t.classList.add(type);
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(t._timer);
   t._timer = setTimeout(function(){ t.classList.remove('show'); }, 2000);
 }
 
-// ===== START =====
-initMissions();
+// =================== START ===================
+state = loadGame();
+if (!state.missions || state.missions.length === 0) initMissions();
+if (!state.orders) state.orders = [];
 initOrders();
 render();
-</script>
-
-</body>
-</html>
+setInterval(saveGame, 30000);

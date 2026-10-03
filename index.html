@@ -1,0 +1,300 @@
+// ===== DANH SÁCH MÓN ĂN =====
+const menuItems = [
+  { id: 1, name: "Cơm Chiên Dương Châu", desc: "Cơm chiên tôm, trứng, xúc xích", price: 35000, emoji: "🍚" },
+  { id: 2, name: "Cơm Chiên Hải Sản", desc: "Tôm, mực, nghêu tươi ngon", price: 45000, emoji: "🦐" },
+  { id: 3, name: "Cơm Chiên Gà Xé", desc: "Gà xé phô mai béo ngậy", price: 40000, emoji: "🍗" },
+  { id: 4, name: "Mì Cay Cấp 3", desc: "Cay vừa, topping bò + cá viên", price: 55000, emoji: "🍜" },
+  { id: 5, name: "Mì Cay Cấp 5", desc: "Cay xé lưỡi, topping hải sản", price: 65000, emoji: "🌶️" },
+  { id: 6, name: "Mì Cay Cấp 7", desc: "Thử thách cho fan cay cứng!", price: 70000, emoji: "🔥" },
+  { id: 7, name: "Cá Viên Chiên", desc: "10 viên giòn rụm, sốt tương ớt", price: 20000, emoji: "🐟" },
+  { id: 8, name: "Cá Viên + Xúc Xích", desc: "Combo 5 cá viên + 2 xúc xích", price: 30000, emoji: "🌭" },
+  { id: 9, name: "Combo Cá Viên Đặc Biệt", desc: "Cá viên, bò viên, tôm viên", price: 40000, emoji: "🍢" },
+];
+
+// ===== EMOJI LOGO GỢI Ý =====
+const EMOJI_OPTIONS = [
+  "🍜","🍚","🍲","🍛","🍝","🔥","🌶️","🐟",
+  "🍢","🍗","🍤","🥘","🍱","🥢","🍽️","👩‍🍳"
+];
+
+// ===== MÀU CHỦ ĐẠO GỢI Ý =====
+const COLOR_OPTIONS = [
+  "#ff5722","#e91e63","#9c27b0","#3f51b5",
+  "#2196f3","#009688","#4caf50","#ff9800",
+  "#795548","#607d8b","#f44336","#ffc107"
+];
+
+// ===== CẤU HÌNH MẶC ĐỊNH =====
+const DEFAULT_SETTINGS = {
+  logoEmoji: "🍜",
+  name: "Quán Ăn Vặt",
+  slogan: "Ngon • Cay • Nóng Hổi",
+  heroTitle: "Quán Ăn Vặt 🔥",
+  heroSub: "Cơm chiên dậy mùi • Mì cay chuẩn Hàn • Cá viên chiên giòn rụm",
+  color: "#ff5722",
+  accent: "#ffb300",
+  address: "123 Đường ABC, Quận 1, TP.HCM",
+  hotline: "0909 123 456"
+};
+
+// ===== LOAD / SAVE =====
+function loadSettings() {
+  try {
+    const saved = localStorage.getItem("quan_settings");
+    return saved ? { ...DEFAULT_SETTINGS, ...JSON.parse(saved) } : { ...DEFAULT_SETTINGS };
+  } catch {
+    return { ...DEFAULT_SETTINGS };
+  }
+}
+
+let settings = loadSettings();
+
+// ===== ÁP DỤNG CÀI ĐẶT =====
+function applySettings() {
+  // Màu
+  document.documentElement.style.setProperty("--primary", settings.color);
+  // Accent = màu sáng hơn của primary (đơn giản: giữ default)
+  document.documentElement.style.setProperty("--accent", settings.accent);
+
+  // Logo
+  document.getElementById("logo-icon").textContent = settings.logoEmoji;
+  document.getElementById("logo-name").textContent = settings.name;
+  document.getElementById("logo-slogan").textContent = settings.slogan;
+
+  // Banner
+  document.getElementById("hero-title").textContent = settings.heroTitle;
+  document.getElementById("hero-subtitle").textContent = settings.heroSub;
+
+  // About
+  document.getElementById("about-title").textContent = "Về " + settings.name;
+
+  // Liên hệ
+  document.getElementById("contact-info").innerHTML = `
+    <p>📍 ${settings.address}</p>
+    <p>📞 Hotline: <strong>${settings.hotline}</strong></p>
+    <p>🕐 Mở cửa: 10:00 - 23:00 (Hàng ngày)</p>
+  `;
+
+  // Footer
+  document.getElementById("footer-name").textContent = settings.name;
+
+  // Title tab
+  document.title = settings.name + " | Đặt món online";
+}
+
+// ===== MỞ / ĐÓNG MODAL =====
+function openSettings() {
+  // Đổ dữ liệu hiện tại vào form
+  document.getElementById("input-name").value = settings.name;
+  document.getElementById("input-slogan").value = settings.slogan;
+  document.getElementById("input-hero-title").value = settings.heroTitle;
+  document.getElementById("input-hero-sub").value = settings.heroSub;
+  document.getElementById("input-address").value = settings.address;
+  document.getElementById("input-hotline").value = settings.hotline;
+
+  // Render emoji + màu
+  renderEmojiPicker();
+  renderColorPicker();
+
+  document.getElementById("settings-overlay").classList.add("active");
+}
+
+function closeSettings() {
+  document.getElementById("settings-overlay").classList.remove("active");
+}
+
+// ===== EMOJI PICKER =====
+function renderEmojiPicker() {
+  const picker = document.getElementById("emoji-picker");
+  picker.innerHTML = EMOJI_OPTIONS.map(e => `
+    <button class="emoji-option ${e === settings.logoEmoji ? "selected" : ""}"
+            onclick="selectEmoji('${e}')">${e}</button>
+  `).join("");
+}
+
+function selectEmoji(e) {
+  settings.logoEmoji = e;
+  renderEmojiPicker();
+}
+
+function setCustomEmoji() {
+  const val = document.getElementById("custom-emoji-input").value.trim();
+  if (val) {
+    settings.logoEmoji = val;
+    renderEmojiPicker();
+    document.getElementById("custom-emoji-input").value = "";
+  }
+}
+
+// ===== COLOR PICKER =====
+function renderColorPicker() {
+  const picker = document.getElementById("color-picker");
+  picker.innerHTML = COLOR_OPTIONS.map(c => `
+    <div class="color-option ${c === settings.color ? "selected" : ""}"
+         style="background:${c}"
+         onclick="selectColor('${c}')"></div>
+  `).join("");
+}
+
+function selectColor(c) {
+  settings.color = c;
+  renderColorPicker();
+}
+
+// ===== LƯU =====
+function saveSettings() {
+  settings.name = document.getElementById("input-name").value.trim() || DEFAULT_SETTINGS.name;
+  settings.slogan = document.getElementById("input-slogan").value.trim() || DEFAULT_SETTINGS.slogan;
+  settings.heroTitle = document.getElementById("input-hero-title").value.trim() || DEFAULT_SETTINGS.heroTitle;
+  settings.heroSub = document.getElementById("input-hero-sub").value.trim() || DEFAULT_SETTINGS.heroSub;
+  settings.address = document.getElementById("input-address").value.trim() || DEFAULT_SETTINGS.address;
+  settings.hotline = document.getElementById("input-hotline").value.trim() || DEFAULT_SETTINGS.hotline;
+
+  localStorage.setItem("quan_settings", JSON.stringify(settings));
+  applySettings();
+  closeSettings();
+  showToast("✅ Đã lưu cài đặt!");
+}
+
+// ===== RESET =====
+function resetSettings() {
+  if (!confirm("Bạn có chắc muốn khôi phục cài đặt mặc định?")) return;
+  settings = { ...DEFAULT_SETTINGS };
+  localStorage.removeItem("quan_settings");
+  applySettings();
+  openSettings(); // Refresh form
+  showToast("🔄 Đã khôi phục mặc định");
+}
+
+// ===== MENU =====
+const formatVND = (n) => n.toLocaleString("vi-VN") + "đ";
+
+function renderMenu() {
+  const grid = document.getElementById("menu-grid");
+  grid.innerHTML = menuItems.map(item => `
+    <div class="menu-card">
+      <div class="dish-img">${item.emoji}</div>
+      <div class="info">
+        <h3>${item.name}</h3>
+        <p class="desc">${item.desc}</p>
+        <div class="price">${formatVND(item.price)}</div>
+        <button class="btn-add" onclick="addToCart(${item.id})">+ Thêm vào giỏ</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+// ===== GIỎ HÀNG =====
+let cart = [];
+
+function addToCart(id) {
+  const item = menuItems.find(m => m.id === id);
+  const existing = cart.find(c => c.id === id);
+  if (existing) existing.qty++;
+  else cart.push({ ...item, qty: 1 });
+  updateCart();
+  showToast(`Đã thêm "${item.name}" 🎉`);
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(c => c.id !== id);
+  updateCart();
+}
+
+function removeItem(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCart();
+}
+
+function updateCart() {
+  const cartItems = document.getElementById("cart-items");
+  const cartCount = document.getElementById("cart-count");
+  const cartTotal = document.getElementById("cart-total");
+
+  const totalQty = cart.reduce((s, c) => s + c.qty, 0);
+  const totalPrice = cart.reduce((s, c) => s + c.qty * c.price, 0);
+
+  cartCount.textContent = totalQty;
+  cartTotal.textContent = formatVND(totalPrice);
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = '<p class="empty-cart">Giỏ hàng đang trống</p>';
+    return;
+  }
+
+  cartItems.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="dish-img-sm">${item.emoji}</div>
+      <div class="cart-item-info">
+        <h4>${item.name}</h4>
+        <div class="item-price">${formatVND(item.price)}</div>
+        <div class="qty-control">
+          <button onclick="changeQty(${item.id}, -1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+      </div>
+      <button class="remove-btn" onclick="removeItem(${item.id})">🗑️</button>
+    </div>
+  `).join("");
+}
+
+function toggleCart() {
+  document.getElementById("cart-sidebar").classList.toggle("active");
+  document.getElementById("cart-overlay").classList.toggle("active");
+}
+
+function checkout() {
+  if (cart.length === 0) {
+    showToast("Giỏ hàng trống, vui lòng chọn món! 🛒");
+    return;
+  }
+  const total = cart.reduce((s, c) => s + c.qty * c.price, 0);
+  const summary = cart.map(c => `• ${c.name} x${c.qty}`).join("\n");
+  alert(
+    `🎉 ĐẶT HÀNG THÀNH CÔNG!\n\n` +
+    `📍 ${settings.name}\n\n` +
+    `Chi tiết đơn:\n${summary}\n\n` +
+    `Tổng: ${formatVND(total)}\n\n` +
+    `Quán sẽ liên hệ xác nhận trong 5 phút. Cảm ơn bạn! ❤️`
+  );
+  cart = [];
+  updateCart();
+  toggleCart();
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const toast = document.createElement("div");
+  toast.textContent = msg;
+  toast.style.cssText = `
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #2c2c2c; color: #fff; padding: 12px 24px; border-radius: 50px;
+    font-weight: 600; z-index: 999; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    font-family: 'Be Vietnam Pro', sans-serif; font-size: 14px;
+    opacity: 0; transition: opacity 0.3s, bottom 0.3s;
+  `;
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => {
+    toast.style.opacity = "1";
+    toast.style.bottom = "50px";
+  });
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.bottom = "30px";
+    setTimeout(() => toast.remove(), 300);
+  }, 2000);
+}
+
+// ===== ĐÓNG MODAL KHI CLICK OVERLAY =====
+document.getElementById("settings-overlay").addEventListener("click", (e) => {
+  if (e.target.id === "settings-overlay") closeSettings();
+});
+
+// ===== KHỞI TẠO =====
+applySettings();
+renderMenu();
+updateCart();

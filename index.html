@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Tiệm Mì Cay</title>
+<title>Tiệm Mì Cay Ultimate</title>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--red:#e63946;--red-dark:#c1121f;--gold:#ffc300;--green:#06a77d;--blue:#4a90e2;--purple:#9b59b6;--dark:#2b1810}
+:root{--red:#e63946;--red-dark:#c1121f;--gold:#ffc300;--green:#06a77d;--blue:#4a90e2;--purple:#9b59b6;--dark:#2b1810;--pink:#ff6b9d}
 body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#3d0a0a,#5a1818 40%,#3d0a0a);min-height:100vh;color:#fff;padding:10px;overflow-x:hidden;font-size:14px}
 .app{max-width:480px;margin:0 auto;padding-bottom:20px}
-.top-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:rgba(0,0,0,.4);border-radius:14px;padding:8px;margin-bottom:10px;border:1px solid rgba(255,255,255,.1)}
+.top-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:rgba(0,0,0,.4);border-radius:14px;padding:8px 6px;margin-bottom:10px;border:1px solid rgba(255,255,255,.1)}
 .top-item{text-align:center}
-.top-label{font-size:9px;opacity:.6;font-weight:700}
-.top-value{font-size:12px;font-weight:800;color:var(--gold);margin-top:2px}
+.top-label{font-size:8px;opacity:.6;font-weight:700}
+.top-value{font-size:11px;font-weight:800;color:var(--gold);margin-top:2px}
 .top-value.money{color:#4ade80}
 .shop-card{background:linear-gradient(135deg,var(--red),var(--red-dark));border-radius:18px;padding:14px;position:relative;overflow:hidden;box-shadow:0 8px 25px rgba(230,57,70,.4);margin-bottom:12px}
-.shop-name{font-size:22px;font-weight:900;margin-bottom:4px;position:relative;z-index:1;cursor:pointer;display:flex;align-items:center;gap:6px}
+.shop-name{font-size:22px;font-weight:900;margin-bottom:4px;cursor:pointer;display:flex;align-items:center;gap:6px}
 .shop-name .edit{font-size:12px;opacity:.6}
 .chapter{font-size:12px;opacity:.9;margin-bottom:10px}
 .level-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -25,9 +25,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 .xp-fill{height:100%;background:linear-gradient(90deg,var(--gold),#ffed4e);width:0%;transition:width .4s;border-radius:10px}
 .xp-text{font-size:10px;font-weight:700;min-width:50px;text-align:right}
 .stars-row{display:flex;gap:2px;font-size:14px}
-.tabs{display:flex;gap:5px;overflow-x:auto;margin-bottom:12px;padding-bottom:4px;scrollbar-width:none}
+.tabs{display:flex;gap:4px;overflow-x:auto;margin-bottom:12px;padding-bottom:4px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex-shrink:0;padding:8px 12px;border-radius:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#fff;font-family:inherit;font-weight:700;font-size:11px;cursor:pointer;transition:.2s;white-space:nowrap}
+.tab{flex-shrink:0;padding:8px 11px;border-radius:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#fff;font-family:inherit;font-weight:700;font-size:11px;cursor:pointer;transition:.2s;white-space:nowrap}
 .tab.active{background:var(--red);border-color:#ff6b6b;box-shadow:0 4px 12px rgba(230,57,70,.5)}
 .panel{display:none;animation:fadeIn .25s}
 .panel.active{display:block}
@@ -36,20 +36,19 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 .card-title{font-size:14px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .card-title small{font-size:11px;opacity:.7;font-weight:600}
 .btn-main{width:100%;background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;border:none;padding:15px;border-radius:14px;font-family:inherit;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 8px 25px rgba(230,57,70,.5);margin:12px 0 6px}
-.btn-main:hover{transform:translateY(-2px)}
 .daily-cost{text-align:center;font-size:11px;opacity:.6;margin-bottom:12px}
 .quick-actions{display:flex;gap:6px;margin-top:8px}
 .btn-quick{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;padding:10px;border-radius:11px;font-family:inherit;font-weight:700;font-size:11px;cursor:pointer}
-.btn-quick:hover{background:rgba(255,255,255,.15)}
 .btn-quick.danger{background:rgba(230,57,70,.15);border-color:rgba(230,57,70,.3);color:#ff9999}
 .empty{opacity:.6;text-align:center;padding:20px 0;font-size:13px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dark);color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:2000;opacity:0;transition:.3s;border:1px solid rgba(255,255,255,.15);white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dark);color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:2000;opacity:0;transition:.3s;border:1px solid rgba(255,255,255,.15);white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.success{background:var(--green)}
 .toast.error{background:var(--red)}
 .toast.gold{background:var(--gold);color:var(--dark)}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px;overflow-y:auto}
-.modal.show{display:flex;animation:fadeIn .2s}
+.modal.show{display:flex}
 .modal-box{background:linear-gradient(180deg,#3a1f14,#2b1810);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:20px;max-width:400px;width:100%;margin:auto}
 .modal-title{font-size:17px;font-weight:800;margin-bottom:12px;text-align:center}
 .modal-sub{font-size:13px;opacity:.85;text-align:center;margin-bottom:16px;line-height:1.6}
@@ -58,8 +57,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 .btn-cancel,.btn-ok{flex:1;padding:11px;border-radius:11px;border:none;font-family:inherit;font-weight:800;cursor:pointer;font-size:13px}
 .btn-cancel{background:rgba(255,255,255,.1);color:#fff}
 .btn-ok{background:var(--red);color:#fff}
-
-  .ingredient{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.ingredient{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .ingredient:last-child{border-bottom:none}
 .ing-icon{font-size:24px;width:36px;text-align:center}
 .ing-info{flex:1;min-width:0}
@@ -69,17 +67,24 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 .btn-buy{background:var(--green);color:#fff;border:none;padding:7px 11px;border-radius:9px;font-family:inherit;font-weight:700;font-size:11px;cursor:pointer;white-space:nowrap}
 .btn-buy:disabled{background:#555;cursor:not-allowed}
 .btn-buy.bulk{background:var(--blue);margin-left:4px}
-.cook-area{text-align:center;padding:16px 0}
-.pot{font-size:72px;display:inline-block;transition:.3s}
-.pot.cooking{animation:boil .5s ease-in-out infinite}
-@keyframes boil{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
-.cook-status{font-size:13px;font-weight:700;margin-top:10px;min-height:18px}
-.cook-info{font-size:11px;opacity:.7;margin-top:6px}
-.btn-cook{background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;border:none;padding:13px 34px;border-radius:13px;font-family:inherit;font-weight:800;font-size:14px;cursor:pointer;margin-top:12px}
+.cook-zone{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.cook-slot{background:rgba(0,0,0,.3);border:2px solid rgba(255,255,255,.15);border-radius:12px;padding:10px;text-align:center;position:relative;overflow:hidden;min-height:140px}
+.cook-slot.active{border-color:var(--gold);box-shadow:0 0 15px rgba(255,195,0,.4)}
+.cook-slot.empty-slot{border-style:dashed;opacity:.5}
+.slot-pot{font-size:40px;display:block;margin:4px 0}
+.slot-pot.cooking{animation:boil .5s ease-in-out infinite}
+@keyframes boil{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-5px) rotate(3deg)}}
+.slot-status{font-size:10px;font-weight:700;margin-top:4px;min-height:14px}
+.slot-chef{font-size:11px;color:var(--gold);font-weight:700}
+.slot-progress{height:5px;background:rgba(0,0,0,.4);border-radius:3px;overflow:hidden;margin-top:5px}
+.slot-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#ffed4e);width:0%;transition:width .1s linear}
+.chef-badge{position:absolute;top:4px;left:4px;font-size:14px}
+.chef-badge.auto{background:rgba(74,144,226,.3);border-radius:50%;padding:2px}
+.btn-cook{background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;border:none;padding:11px 20px;border-radius:11px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;margin-top:8px;width:100%}
 .btn-cook:disabled{background:#666;cursor:not-allowed}
-.progress{height:9px;background:rgba(0,0,0,.3);border-radius:10px;overflow:hidden;margin-top:10px;display:none}
-.progress.active{display:block}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#ffed4e);width:0%;transition:width .1s linear}
+.spicy-picker{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin:8px 0}
+.spicy-btn{border:none;padding:8px 2px;border-radius:8px;font-family:inherit;font-size:11px;font-weight:800;cursor:pointer;color:#fff;transition:.2s}
+.spicy-btn.selected{transform:scale(1.1);border:2px solid #fff}
 .cooked-item{display:flex;align-items:center;justify-content:space-between;background:rgba(255,195,0,.1);border:1px solid rgba(255,195,0,.3);border-radius:11px;padding:10px;margin-bottom:6px;gap:8px}
 .btn-sell{background:var(--gold);color:var(--dark);border:none;padding:7px 12px;border-radius:9px;font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
 .mission{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px;margin-bottom:8px}
@@ -89,7 +94,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 .mission-reward{font-size:11px;opacity:.7}
 .mission.done{background:rgba(6,167,125,.15);border-color:var(--green)}
 .mission.done .mission-progress{color:var(--green)}
-.order{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative;overflow:hidden}
+.order{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px;margin-bottom:8px;position:relative;overflow:hidden}
+.order-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
 .order-info{flex:1;min-width:0}
 .order-name{font-weight:700;font-size:13px;margin-bottom:3px}
 .order-detail{font-size:11px;opacity:.75}
@@ -98,15 +104,18 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 .btn-deliver:disabled{background:#555;cursor:not-allowed}
 .patience-bar{height:4px;background:rgba(0,0,0,.3);border-radius:4px;overflow:hidden;margin-top:6px}
 .patience-fill{height:100%;background:linear-gradient(90deg,#4ade80,#facc15,#ef4444);width:100%;transition:width .5s linear}
-.staff{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+
+  .staff{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .staff:last-child{border-bottom:none}
-.staff-avatar{font-size:30px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);border-radius:12px;flex-shrink:0}
+.staff-avatar{font-size:30px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);border-radius:12px;flex-shrink:0;position:relative}
+.staff-avatar.working{background:rgba(255,195,0,.2);border:2px solid var(--gold);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,195,0,.5)}50%{box-shadow:0 0 0 8px rgba(255,195,0,0)}}
 .staff-info{flex:1;min-width:0}
 .staff-name{font-weight:700;font-size:13px}
 .staff-role{font-size:11px;opacity:.7;margin-top:2px}
+.staff-status{font-size:11px;color:var(--gold);font-weight:700;margin-top:2px;min-height:14px}
 .staff-salary{font-size:11px;color:var(--gold);font-weight:700;margin-top:2px}
 .btn-fire{background:rgba(230,57,70,.2);color:#ff6b6b;border:1px solid rgba(230,57,70,.4);padding:6px 10px;border-radius:8px;font-family:inherit;font-weight:700;font-size:11px;cursor:pointer}
-.btn-fire:hover{background:var(--red);color:#fff}
 .btn-hire{background:var(--blue);color:#fff;border:none;padding:8px 14px;border-radius:9px;font-family:inherit;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap}
 .btn-hire:disabled{background:#555;cursor:not-allowed}
 .grab-card{background:linear-gradient(135deg,#00b14f,#008a3d);border-radius:14px;padding:16px;margin-bottom:10px;position:relative;overflow:hidden}
@@ -120,38 +129,19 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 .rank-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0}
 .rank-item.me{background:rgba(255,195,0,.15);border-radius:10px;padding:10px 12px}
 .rank-item.me .rank-num{background:var(--gold);color:var(--dark)}
-.rank-item.top1 .rank-num{background:linear-gradient(135deg,#ffc300,#ff9500);color:#fff}
 .rank-name{flex:1;font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rank-score{font-weight:800;color:var(--gold);font-size:12px}
-.upgrade-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
-.upgrade-icon{font-size:30px;width:44px;text-align:center;flex-shrink:0}
-.upgrade-info{flex:1;min-width:0}
-.upgrade-name{font-weight:700;font-size:13px}
-.upgrade-desc{font-size:11px;opacity:.7;margin-top:2px}
+.upgrade-item,.decor-item,.achievement,.branch-item,.stock-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.decor-item.owned,.achievement.unlocked,.branch-item.owned{background:rgba(6,167,125,.15);border-color:var(--green)}
+.upgrade-icon,.decor-icon,.ach-icon,.branch-icon{font-size:28px;width:44px;text-align:center;flex-shrink:0}
+.upgrade-info,.decor-info,.ach-info,.branch-info{flex:1;min-width:0}
+.upgrade-name,.decor-name,.ach-name,.branch-name{font-weight:700;font-size:13px}
+.upgrade-desc,.decor-desc,.ach-desc,.branch-desc{font-size:11px;opacity:.7;margin-top:2px}
 .upgrade-level{font-size:11px;color:var(--gold);font-weight:700;margin-top:2px}
-.btn-upgrade{background:linear-gradient(135deg,var(--purple),#7d3c98);color:#fff;border:none;padding:8px 12px;border-radius:9px;font-family:inherit;font-weight:700;font-size:11px;cursor:pointer;white-space:nowrap}
-.btn-upgrade:disabled{background:#555;cursor:not-allowed}
-.decor-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
-.decor-item.owned{background:rgba(6,167,125,.15);border-color:var(--green)}
-.decor-icon{font-size:30px;width:44px;text-align:center;flex-shrink:0}
-.decor-info{flex:1;min-width:0}
-.decor-name{font-weight:700;font-size:13px}
-.decor-desc{font-size:11px;opacity:.7;margin-top:2px}
-.btn-decor{background:linear-gradient(135deg,var(--purple),#7d3c98);color:#fff;border:none;padding:8px 12px;border-radius:9px;font-family:inherit;font-weight:700;font-size:11px;cursor:pointer;white-space:nowrap}
-.btn-decor:disabled{background:var(--green);cursor:default}
-.achievement{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;margin-bottom:6px}
-.achievement.unlocked{background:rgba(255,195,0,.15);border-color:var(--gold)}
-.ach-icon{font-size:26px;width:40px;text-align:center}
-.ach-info{flex:1}
-.ach-name{font-weight:700;font-size:12px}
-.ach-desc{font-size:10px;opacity:.7;margin-top:2px}
 .ach-reward{font-size:10px;color:var(--gold);font-weight:700;margin-top:2px}
-.chart-bar{display:flex;align-items:flex-end;gap:4px;height:100px;padding:8px 0;justify-content:space-between}
-.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
-.chart-fill{width:100%;background:linear-gradient(180deg,var(--gold),var(--red));border-radius:4px 4px 0 0;min-height:4px;transition:height .4s}
-.chart-label{font-size:9px;opacity:.7}
-.chart-val{font-size:9px;color:var(--gold);font-weight:700}
-.weather{display:inline-block;padding:3px 8px;background:rgba(0,0,0,.3);border-radius:20px;font-size:11px;font-weight:700}
+.btn-upgrade,.btn-decor{background:linear-gradient(135deg,var(--purple),#7d3c98);color:#fff;border:none;padding:8px 12px;border-radius:9px;font-family:inherit;font-weight:700;font-size:11px;cursor:pointer;white-space:nowrap}
+.btn-upgrade:disabled,.btn-decor:disabled{background:#555;cursor:not-allowed}
+.btn-decor:disabled{background:var(--green)}
 .drink-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .drink-item:last-child{border-bottom:none}
 .drink-icon{font-size:24px;width:36px;text-align:center}
@@ -162,10 +152,30 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 .stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
 .stat-row:last-child{border-bottom:none}
 .stat-row span:last-child{font-weight:800;color:var(--gold)}
+.chart-bar{display:flex;align-items:flex-end;gap:4px;height:100px;padding:8px 0;justify-content:space-between}
+.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.chart-fill{width:100%;background:linear-gradient(180deg,var(--gold),var(--red));border-radius:4px 4px 0 0;min-height:4px;transition:height .4s}
+.chart-label{font-size:9px;opacity:.7}
+.chart-val{font-size:9px;color:var(--gold);font-weight:700}
 .help-content{line-height:1.7;font-size:13px}
 .help-content p{margin-bottom:8px}
 .help-content strong{color:var(--gold)}
-.badge-icon{position:absolute;top:-4px;right:-4px;font-size:10px;background:var(--red);width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800}
+.story-card{background:linear-gradient(135deg,#2b1810,#1a0f08);border:2px solid var(--gold);border-radius:14px;padding:16px;margin-bottom:10px;text-align:center}
+.story-title{font-size:16px;font-weight:900;color:var(--gold);margin-bottom:8px}
+.story-text{font-size:13px;line-height:1.6;opacity:.9;margin-bottom:12px}
+.msg-bubble{background:rgba(255,255,255,.08);border-left:3px solid var(--blue);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12px;line-height:1.5}
+.msg-from{font-weight:800;color:var(--blue);font-size:11px;margin-bottom:3px}
+.minigame-box{text-align:center;padding:20px}
+.minigame-target{font-size:60px;margin:20px 0}
+.btn-minigame{background:var(--gold);color:var(--dark);border:none;padding:14px 28px;border-radius:12px;font-family:inherit;font-weight:900;font-size:15px;cursor:pointer}
+.spin-wheel{width:180px;height:180px;border-radius:50%;background:conic-gradient(#e63946 0 60deg,#ffc300 60deg 120deg,#06a77d 120deg 180deg,#4a90e2 180deg 240deg,#9b59b6 240deg 300deg,#ff6b9d 300deg 360deg);margin:20px auto;position:relative;transition:transform 3s cubic-bezier(.17,.67,.83,.67);box-shadow:0 0 30px rgba(255,195,0,.4)}
+.spin-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:30px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.5))}
+.notification-dot{position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:var(--red);border-radius:50%;border:2px solid #fff;animation:pulseRed 1s infinite}
+@keyframes pulseRed{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.confetti{position:fixed;top:-10px;width:10px;height:10px;background:var(--gold);z-index:9999;pointer-events:none;animation:fall 3s linear forwards}
+@keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.coin-fly{position:fixed;font-size:30px;z-index:9999;pointer-events:none;animation:coinUp 1s ease-out forwards}
+@keyframes coinUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-100px) scale(1.5)}}
 </style>
 </head>
 <body>
@@ -174,7 +184,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
     <div class="top-item"><div class="top-label">NGÀY</div><div class="top-value" id="day">1</div></div>
     <div class="top-item"><div class="top-label">KẾT</div><div class="top-value money" id="money">0đ</div></div>
     <div class="top-item"><div class="top-label">SAO</div><div class="top-value" id="stars">0★</div></div>
-    <div class="top-item"><div class="top-label">THỜI TIẾT</div><div class="top-value" id="weather-top" style="font-size:14px">☀️</div></div>
+    <div class="top-item"><div class="top-label">T.TIẾT</div><div class="top-value" id="weather-top">☀️</div></div>
+    <div class="top-item"><div class="top-label">NV</div><div class="top-value" id="staff-count">0</div></div>
   </div>
 
   <div class="shop-card">
@@ -182,7 +193,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
       <span id="shop-name">Tiệm Mì Cay</span>
       <span class="edit">✏️</span>
     </div>
-    <div class="chapter">📖 Chương <span id="chapter">1</span>: Bếp nhà</div>
+    <div class="chapter">📖 Chương <span id="chapter">1</span>: <span id="chapter-name">Bếp nhà</span></div>
     <div class="level-row">
       <div class="level-badge">Cấp <span id="level">1</span></div>
       <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
@@ -193,16 +204,18 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 
   <div class="tabs">
     <button class="tab active" onclick="showTab('kho',this)">🛒 Kho</button>
-    <button class="tab" onclick="showTab('nau',this)">🍜 Nấu</button>
+    <button class="tab" onclick="showTab('nau',this)">🍜 Bếp</button>
     <button class="tab" onclick="showTab('khach',this)">👥 Khách</button>
     <button class="tab" onclick="showTab('ban',this)">💰 Bán</button>
     <button class="tab" onclick="showTab('nhanvien',this)">👨‍🍳 NV</button>
     <button class="tab" onclick="showTab('online',this)">🛵 Online</button>
     <button class="tab" onclick="showTab('nhiemvu',this)">🎯 NVụ</button>
-    <button class="tab" onclick="showTab('thanhtuu',this)">🏅 T.Tựu</button>
+    <button class="tab" onclick="showTab('thanhtuu',this)">🏅 Tựu</button>
     <button class="tab" onclick="showTab('nangcap',this)">📈 Nâng</button>
     <button class="tab" onclick="showTab('trangtri',this)">🎨 Trí</button>
     <button class="tab" onclick="showTab('thongke',this)">📊 TK</button>
+    <button class="tab" onclick="showTab('story',this)">📖 Story</button>
+    <button class="tab" onclick="showTab('minigame',this)">🎰 Game</button>
     <button class="tab" onclick="showTab('rank',this)">🏆 TOP</button>
   </div>
 
@@ -214,26 +227,18 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
   <div class="panel" id="panel-nau">
     <div class="card">
       <div class="card-title">🍳 Bếp nấu <small id="cook-level"></small></div>
-      <div class="cook-area">
-        <div class="pot" id="pot">🍲</div>
-        <div class="cook-status" id="cook-status">Sẵn sàng nấu</div>
-        <div class="progress" id="progress"><div class="progress-fill" id="progress-fill"></div></div>
-        <div style="margin-top:12px">
-          <div style="font-size:11px;opacity:.7;margin-bottom:6px">Chọn cấp cay:</div>
-          <div id="spicy-picker" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px"></div>
-        </div>
-        <button class="btn-cook" id="btn-cook" onclick="startCook()">🔥 Nấu mì</button>
-        <div class="cook-info" id="cook-info"></div>
-      </div>
+      <div style="font-size:11px;opacity:.7;margin-bottom:6px">Chọn cấp cay để nấu:</div>
+      <div class="spicy-picker" id="spicy-picker"></div>
+      <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:8px" id="cook-info"></div>
+      <div class="cook-zone" id="cook-zone"></div>
+      <button class="btn-cook" id="btn-cook" onclick="startCook()" style="margin-top:10px">🔥 Nấu mì (10s)</button>
     </div>
     <div class="card"><div class="card-title">🍜 Mì chín</div><div id="cooked-list"></div></div>
+    <div class="card"><div class="card-title">👨‍🍳 Đầu bếp & Phụ bếp đang làm</div><div id="chef-activity"></div></div>
   </div>
 
   <div class="panel" id="panel-khach">
-    <div class="card">
-      <div class="card-title">👥 Khách đang chờ <small id="khach-count"></small></div>
-      <div id="khach-list"></div>
-    </div>
+    <div class="card"><div class="card-title">👥 Khách đang chờ <small id="khach-count"></small></div><div id="khach-list"></div></div>
   </div>
 
   <div class="panel" id="panel-ban">
@@ -248,11 +253,12 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 
   <div class="panel" id="panel-online">
     <div class="card"><div class="card-title">🛵 Đơn online</div><div id="order-list"></div></div>
-    <div class="card"><div class="card-title">🚀 Grab giao hàng</div><div id="grab-panel"></div></div>
+    <div class="card"><div class="card-title">🚀 Grab giao</div><div id="grab-panel"></div></div>
   </div>
 
   <div class="panel" id="panel-nhiemvu">
     <div class="card"><div class="card-title">🎯 Nhiệm vụ ngày</div><div id="mission-list"></div></div>
+    <div class="card"><div class="card-title">📅 Nhiệm vụ tuần</div><div id="weekly-mission-list"></div></div>
   </div>
 
   <div class="panel" id="panel-thanhtuu">
@@ -261,6 +267,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 
   <div class="panel" id="panel-nangcap">
     <div class="card"><div class="card-title">📈 Nâng cấp</div><div id="upgrade-list"></div></div>
+    <div class="card"><div class="card-title">🏪 Chi nhánh</div><div id="branch-list"></div></div>
   </div>
 
   <div class="panel" id="panel-trangtri">
@@ -269,7 +276,44 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
 
   <div class="panel" id="panel-thongke">
     <div class="card"><div class="card-title">📊 Doanh thu 7 ngày</div><div id="chart-7days"></div></div>
-    <div class="card"><div class="card-title">📈 Thống kê hôm nay</div><div id="stats-today"></div></div>
+    <div class="card"><div class="card-title">📈 Hôm nay</div><div id="stats-today"></div></div>
+  </div>
+
+  <div class="panel" id="panel-story">
+    <div class="card">
+      <div class="story-card">
+        <div class="story-title" id="story-title">📖 Chương 1: Bếp nhà</div>
+        <div class="story-text" id="story-text">Cô Ba để lại tiệm mì nhỏ cho bạn...</div>
+        <button class="btn-cook" onclick="nextStoryChapter()" style="width:100%">Tiếp tục →</button>
+      </div>
+    </div>
+    <div class="card"><div class="card-title">💬 Tin nhắn</div><div id="msg-list"></div></div>
+  </div>
+
+  <div class="panel" id="panel-minigame">
+    <div class="card">
+      <div class="card-title">🎰 Vòng quay may mắn</div>
+      <div class="minigame-box">
+        <div style="position:relative;display:inline-block">
+          <div class="spin-pointer">▼</div>
+          <div class="spin-wheel" id="spin-wheel"></div>
+        </div>
+        <div style="margin-top:14px;font-size:13px;opacity:.8" id="spin-status">Quay 1 lần miễn phí mỗi ngày!</div>
+        <button class="btn-minigame" id="btn-spin" onclick="spinWheel()" style="margin-top:10px">🎰 QUAY</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🍜 Mini game nấu ăn</div>
+      <div class="minigame-box">
+        <div style="font-size:13px;opacity:.8">Bấm đúng lúc để nấu hoàn hảo!</div>
+        <div class="minigame-target" id="mg-target">🔥</div>
+        <div style="font-size:12px;margin:8px 0" id="mg-status">Nhấn BẮT ĐẦU để chơi</div>
+        <div style="height:8px;background:rgba(0,0,0,.3);border-radius:8px;overflow:hidden;margin:10px 0">
+          <div id="mg-bar" style="height:100%;background:linear-gradient(90deg,#4ade80,#facc15,#ef4444);width:0%;transition:width .05s linear"></div>
+        </div>
+        <button class="btn-minigame" id="btn-mg" onclick="playMiniGame()">BẮT ĐẦU</button>
+      </div>
+    </div>
   </div>
 
   <div class="panel" id="panel-rank">
@@ -302,13 +346,13 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
     <div class="modal-title">📖 Cách chơi</div>
     <div class="help-content">
       <p><strong>1.</strong> Mua nguyên liệu ở tab 🛒 Kho</p>
-      <p><strong>2.</strong> Nấu mì ở tab 🍜 Nấu (chọn cấp cay trước)</p>
-      <p><strong>3.</strong> Khách vào tab 👥 Khách — bán đúng cấp cay khách muốn</p>
-      <p><strong>4.</strong> Thuê NV ở tab 👨‍🍳 NV (tự động làm)</p>
-      <p><strong>5.</strong> Giao đơn ở tab 🛵 Online hoặc dùng Grab</p>
-      <p><strong>6.</strong> Nâng cấp bếp, trang trí ở tab 📈 🎨</p>
-      <p><strong>7.</strong> Xem thành tựu ở tab 🏅, thống kê ở 📊</p>
-      <p style="margin-top:10px;opacity:.8;font-size:12px">💡 Khách kiên nhẫn có giới hạn. Hết giờ → khách bỏ đi, -1 sao!</p>
+      <p><strong>2.</strong> Nấu mì ở tab 🍜 Bếp (chọn cấp cay trước khi nấu)</p>
+      <p><strong>3.</strong> Mỗi đầu bếp = 1 slot nấu riêng (nấu song song)</p>
+      <p><strong>4.</strong> Khách vào tab 👥 Khách — bán đúng cấp cay khách muốn</p>
+      <p><strong>5.</strong> Thuê NV ở tab 👨‍🍳 NV (tự động làm và hiển thị real-time)</p>
+      <p><strong>6.</strong> Giao đơn ở tab 🛵 Online hoặc dùng Grab</p>
+      <p><strong>7.</strong> Chơi mini game ở tab 🎰 Game kiếm thưởng</p>
+      <p style="margin-top:10px;opacity:.8;font-size:12px">💡 Khách kiên nhẫn có giới hạn. Hết giờ → khách bỏ đi, -sao!</p>
     </div>
     <div class="modal-actions" style="margin-top:14px">
       <button class="btn-ok" onclick="closeModal('modal-help')">OK</button>
@@ -326,10 +370,19 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:linear-gradient(180deg,#
   </div>
 </div>
 
+<div class="modal" id="modal-story">
+  <div class="modal-box">
+    <div class="modal-title" id="story-modal-title">📖</div>
+    <p class="modal-sub" id="story-modal-text"></p>
+    <div class="modal-actions">
+      <button class="btn-ok" onclick="closeModal('modal-story')">Tiếp tục</button>
+    </div>
+  </div>
+</div>
+
 <script>
 
-  // =================== DATA ===================
-var INGREDIENTS = [
+  var INGREDIENTS = [
   {id:'mi', name:'Mì', emoji:'🍜', price:5000},
   {id:'thit', name:'Thịt bò', emoji:'🥩', price:8000},
   {id:'rau', name:'Rau cải', emoji:'🥬', price:3000},
@@ -342,101 +395,118 @@ var DRINKS = [
   {id:'suatuoi', name:'Sữa tươi', emoji:'🥛', price:15000, cost:8000}
 ];
 var SPICY = [
-  {level:1, name:'Cấp 1', mult:1.0, color:'#f4a261'},
-  {level:2, name:'Cấp 2', mult:1.15, color:'#e76f51'},
-  {level:3, name:'Cấp 3', mult:1.3, color:'#e63946'},
-  {level:4, name:'Cấp 4', mult:1.5, color:'#d62828'},
-  {level:5, name:'Cấp 5', mult:1.7, color:'#b71c1c'},
-  {level:6, name:'Cấp 6', mult:2.0, color:'#8b0000'},
-  {level:7, name:'Cấp 7', mult:2.5, color:'#5a0000'}
+  {level:1, name:'C1', mult:1.0, color:'#f4a261'},
+  {level:2, name:'C2', mult:1.15, color:'#e76f51'},
+  {level:3, name:'C3', mult:1.3, color:'#e63946'},
+  {level:4, name:'C4', mult:1.5, color:'#d62828'},
+  {level:5, name:'C5', mult:1.7, color:'#b71c1c'},
+  {level:6, name:'C6', mult:2.0, color:'#8b0000'},
+  {level:7, name:'C7', mult:2.5, color:'#5a0000'}
 ];
 var STAFF_TYPES = [
-  {id:'phubep', name:'Phụ bếp', emoji:'👨‍🍳', salary:50000, desc:'Nấu 1 tô/8s'},
-  {id:'phucvu', name:'Phục vụ', emoji:'💁', salary:60000, desc:'Bán 1 tô/6s'},
-  {id:'shipper', name:'Shipper', emoji:'🛵', salary:80000, desc:'Giao 1 đơn/10s'},
-  {id:'bepTruong', name:'Bếp trưởng', emoji:'👨‍🍳', salary:150000, desc:'Nấu 2 tô/6s +10% giá'}
+  {id:'daubep', name:'Đầu bếp', emoji:'👨‍🍳', salary:50000, desc:'Thêm 1 slot nấu riêng', color:'#4a90e2'},
+  {id:'phubep', name:'Phụ bếp', emoji:'🧑‍🍳', salary:40000, desc:'Tự nấu phụ mỗi 12s', color:'#06a77d'},
+  {id:'phucvu', name:'Phục vụ', emoji:'💁', salary:60000, desc:'Tự bán mỗi 8s', color:'#9b59b6'},
+  {id:'shipper', name:'Shipper', emoji:'🛵', salary:80000, desc:'Tự giao đơn mỗi 12s', color:'#00b14f'},
+  {id:'bepTruong', name:'Bếp trưởng', emoji:'👨‍🍳', salary:150000, desc:'Thêm 2 slot +10% giá', color:'#e63946'}
 ];
 var UPGRADES = [
-  {id:'bep', name:'Bếp nấu', emoji:'🍳', base:50000, mult:2, max:5, desc:'-0.5s thời gian nấu', level:0},
+  {id:'bep', name:'Bếp nấu', emoji:'🍳', base:50000, mult:2, max:5, desc:'-1s thời gian nấu', level:0},
   {id:'kho', name:'Kho chứa', emoji:'📦', base:30000, mult:2, max:5, desc:'+10 slot nguyên liệu', level:0},
-  {id:'bang', name:'Bảng hiệu', emoji:'🎨', base:100000, mult:2.5, max:3, desc:'+0.5 sao khách hàng', level:0},
+  {id:'bang', name:'Bảng hiệu', emoji:'🎨', base:100000, mult:2.5, max:3, desc:'+0.5 sao khách', level:0},
   {id:'bangrap', name:'Bảng Grab', emoji:'📱', base:80000, mult:2, max:3, desc:'-20% phí Grab', level:0},
   {id:'uudai', name:'Ưu đãi', emoji:'🎁', base:120000, mult:2, max:3, desc:'+5% giá bán mì', level:0}
 ];
 var DECORS = [
   {id:'denlong', name:'Đèn lồng đỏ', emoji:'🏮', price:50000, stars:0.2},
   {id:'caycanh', name:'Cây cảnh', emoji:'🌿', price:40000, stars:0.15},
-  {id:'tranh', name:'Tranh treo tường', emoji:'🖼️', price:80000, stars:0.3},
+  {id:'tranh', name:'Tranh tường', emoji:'🖼️', price:80000, stars:0.3},
   {id:'quat', name:'Quạt trần', emoji:'💨', price:120000, stars:0.4},
   {id:'nhac', name:'Loa nhạc', emoji:'🎵', price:150000, stars:0.5},
-  {id:'meo', name:'Tượng mèo may mắn', emoji:'🐱', price:200000, stars:0.7}
+  {id:'meo', name:'Tượng mèo', emoji:'🐱', price:200000, stars:0.7}
+];
+var BRANCHES = [
+  {id:'b1', name:'Chi nhánh Q1', emoji:'🏪', price:500000, income:20000},
+  {id:'b2', name:'Chi nhánh Q3', emoji:'🏬', price:1500000, income:50000},
+  {id:'b3', name:'Chi nhánh Q7', emoji:'🏢', price:3000000, income:120000}
 ];
 var CUSTOMERS = [
-  {name:'Khách dễ tính', emoji:'😊', patience:1.3, tip:0.1},
-  {name:'Khách khó tính', emoji:'😤', patience:0.7, tip:0.2},
-  {name:'Khách VIP', emoji:'🤵', patience:1.0, tip:0.5},
-  {name:'Khách quen', emoji:'😎', patience:1.5, tip:0.3}
+  {name:'Dễ tính', emoji:'😊', patience:1.3, tip:0.1},
+  {name:'Khó tính', emoji:'😤', patience:0.7, tip:0.2},
+  {name:'VIP', emoji:'🤵', patience:1.0, tip:0.5},
+  {name:'Quen', emoji:'😎', patience:1.5, tip:0.3}
 ];
 var ACHIEVEMENTS = [
-  {id:'first_sell', name:'Tô mì đầu tiên', desc:'Bán 1 tô mì', icon:'🍜', check:function(s){return s.totalSold>=1}, reward:10000},
-  {id:'sell_10', name:'Bán 10 tô', desc:'Bán 10 tô mì', icon:'📈', check:function(s){return s.totalSold>=10}, reward:20000},
-  {id:'sell_50', name:'Bán 50 tô', desc:'Bán 50 tô mì', icon:'💰', check:function(s){return s.totalSold>=50}, reward:100000},
-  {id:'sell_100', name:'Bán 100 tô', desc:'Bán 100 tô mì', icon:'💎', check:function(s){return s.totalSold>=100}, reward:300000},
-  {id:'hire_1', name:'Nhân viên đầu tiên', desc:'Thuê 1 NV', icon:'👥', check:function(s){return s.staff.length>=1}, reward:30000},
-  {id:'hire_5', name:'Ông chủ lớn', desc:'Thuê 5 NV', icon:'👔', check:function(s){return s.staff.length>=5}, reward:200000},
-  {id:'level_5', name:'Lên cấp 5', desc:'Đạt cấp 5', icon:'⭐', check:function(s){return s.level>=5}, reward:50000},
-  {id:'level_10', name:'Lên cấp 10', desc:'Đạt cấp 10', icon:'🌟', check:function(s){return s.level>=10}, reward:150000},
-  {id:'money_1m', name:'Triệu phú', desc:'Có 1 triệu', icon:'💵', check:function(s){return s.money>=1000000}, reward:50000},
-  {id:'day_7', name:'Trụ vững 7 ngày', desc:'Chơi 7 ngày', icon:'📅', check:function(s){return s.day>=7}, reward:100000},
-  {id:'day_30', name:'Bền bỉ 30 ngày', desc:'Chơi 30 ngày', icon:'🗓️', check:function(s){return s.day>=30}, reward:500000},
-  {id:'decor_3', name:'Trang trí đẹp', desc:'Mua 3 món trang trí', icon:'🎨', check:function(s){return s.decors.length>=3}, reward:80000},
-  {id:'combo_first', name:'Bán combo đầu tiên', desc:'Bán 1 combo', icon:'🎁', check:function(s){return s.totalCombos>=1}, reward:25000},
-  {id:'grab_10', name:'Grab thần tốc', desc:'Dùng Grab 10 lần', icon:'🚀', check:function(s){return s.totalGrab>=10}, reward:100000}
+  {id:'a1', name:'Tô đầu tiên', desc:'Bán 1 tô', icon:'🍜', check:function(s){return s.totalSold>=1}, reward:10000},
+  {id:'a2', name:'Bán 10 tô', desc:'Bán 10 tô', icon:'📈', check:function(s){return s.totalSold>=10}, reward:20000},
+  {id:'a3', name:'Bán 50 tô', desc:'Bán 50 tô', icon:'💰', check:function(s){return s.totalSold>=50}, reward:100000},
+  {id:'a4', name:'Bán 100 tô', desc:'Bán 100 tô', icon:'💎', check:function(s){return s.totalSold>=100}, reward:300000},
+  {id:'a5', name:'NV đầu tiên', desc:'Thuê 1 NV', icon:'👥', check:function(s){return s.staff.length>=1}, reward:30000},
+  {id:'a6', name:'Ông chủ lớn', desc:'Thuê 5 NV', icon:'👔', check:function(s){return s.staff.length>=5}, reward:200000},
+  {id:'a7', name:'Cấp 5', desc:'Đạt cấp 5', icon:'⭐', check:function(s){return s.level>=5}, reward:50000},
+  {id:'a8', name:'Cấp 10', desc:'Đạt cấp 10', icon:'🌟', check:function(s){return s.level>=10}, reward:150000},
+  {id:'a9', name:'Triệu phú', desc:'Có 1 triệu', icon:'💵', check:function(s){return s.money>=1000000}, reward:50000},
+  {id:'a10', name:'7 ngày', desc:'Chơi 7 ngày', icon:'📅', check:function(s){return s.day>=7}, reward:100000},
+  {id:'a11', name:'30 ngày', desc:'Chơi 30 ngày', icon:'🗓️', check:function(s){return s.day>=30}, reward:500000},
+  {id:'a12', name:'Trang trí', desc:'Mua 3 món trang trí', icon:'🎨', check:function(s){return s.decors.length>=3}, reward:80000},
+  {id:'a13', name:'Combo đầu', desc:'Bán 1 combo', icon:'🎁', check:function(s){return s.totalCombos>=1}, reward:25000},
+  {id:'a14', name:'Grab 10', desc:'Dùng Grab 10 lần', icon:'🚀', check:function(s){return s.totalGrab>=10}, reward:100000},
+  {id:'a15', name:'Chi nhánh', desc:'Mở chi nhánh đầu tiên', icon:'🏪', check:function(s){return s.branches.length>=1}, reward:200000}
 ];
 var WEATHERS = [
-  {id:'sunny', name:'Nắng đẹp', emoji:'☀️', saleMult:1.0, orderMult:1.0},
+  {id:'sunny', name:'Nắng', emoji:'☀️', saleMult:1.0, orderMult:1.0},
   {id:'rainy', name:'Mưa', emoji:'🌧️', saleMult:0.7, orderMult:1.5},
   {id:'hot', name:'Nóng', emoji:'🔥', saleMult:1.3, orderMult:1.1},
-  {id:'cold', name:'Lạnh', emoji:'❄️', saleMult:1.2, orderMult:0.9},
-  {id:'storm', name:'Bão', emoji:'⛈️', saleMult:0.5, orderMult:2.0}
+  {id:'cold', name:'Lạnh', emoji:'❄️', saleMult:1.2, orderMult:0.9}
 ];
 var COMBOS = [
-  {id:'c1', name:'Combo Sinh Viên', items:'1 mì cấp 3 + 1 trà đá', mì:1, spicy:3, drink:'tra', price:35000, original:40000},
-  {id:'c2', name:'Combo Đôi Bạn', items:'2 mì cấp 3 + 2 trà đá', mì:2, spicy:3, drink:'tra', price:65000, original:80000},
-  {id:'c3', name:'Combo Gia Đình', items:'4 mì cấp 3 + 4 nước ngọt', mì:4, spicy:3, drink:'ngot', price:140000, original:180000},
-  {id:'c4', name:'Combo Cay Xé', items:'1 mì cấp 7 + 1 bia', mì:1, spicy:7, drink:'bia', price:70000, original:80000}
+  {id:'c1', name:'Combo SV', items:'1 mì C3 + 1 trà đá', mì:1, spicy:3, drink:'tra', price:35000, original:40000},
+  {id:'c2', name:'Combo Đôi', items:'2 mì C3 + 2 trà đá', mì:2, spicy:3, drink:'tra', price:65000, original:80000},
+  {id:'c3', name:'Combo GĐ', items:'4 mì C3 + 4 nước ngọt', mì:4, spicy:3, drink:'ngot', price:140000, original:180000},
+  {id:'c4', name:'Combo Cay', items:'1 mì C7 + 1 bia', mì:1, spicy:7, drink:'bia', price:70000, original:80000}
 ];
-var BASE_COOK_TIME = 5000;
+var STORIES = [
+  {title:'Chương 1: Bếp nhà', text:'Cô Ba để lại tiệm mì nhỏ cho bạn. Cô nói: "Con hãy nấu mì bằng cả trái tim!"'},
+  {title:'Chương 2: Khách đầu tiên', text:'Vị khách đầu tiên bước vào với vẻ mặt nghi ngờ. Bạn phải chứng minh tay nghề!'},
+  {title:'Chương 3: Đối thủ', text:'Bà Tư mở tiệm cạnh bên, chuyên giành khách. Bạn phải cạnh tranh công bằng!'},
+  {title:'Chương 4: Nổi tiếng', text:'Báo chí đưa tin về tiệm mì cay của bạn. Khách kéo đến đông nghẹt!'},
+  {title:'Chương 5: Đế chế', text:'Bạn đã trở thành ông trùm mì cay. Hãy mở chi nhánh khắp thành phố!'}
+];
+var CHAPTER_NAMES = ['Bếp nhà','Khách đầu tiên','Đối thủ','Nổi tiếng','Đế chế'];
+var BASE_COOK_TIME = 10000;
 var BASE_MI_PRICE = 35000;
 var COST_PER_DAY = 15000;
 var GRAB_FEE = 15000;
 
-// =================== STATE ===================
 var state = null;
 var khachQueue = [];
 var selectedSpicy = 3;
+var cookSlots = [];
 var gameLoopTimer = null;
+var spinToday = false;
+var lastSpinDay = 0;
 
 function newGame() {
   return {
     day:1, money:100000, level:1, xp:0, xpMax:100, stars:3,
     shopName:'Tiệm Mì Cay', chapter:1,
-    kho:{mi:5, thit:5, rau:5, ot:5},
+    kho:{mi:10, thit:10, rau:10, ot:10},
     drinks:{tra:5, ngot:3, bia:2, suatuoi:0},
     cookedBySpicy:{1:0,2:0,3:0,4:0,5:0,6:0,7:0},
-    cooking:false, cookingSpicy:3,
-    missions:[], orders:[],
-    staff:[], upgrades:JSON.parse(JSON.stringify(UPGRADES)),
-    decors:[], achievements:[],
+    missions:[], orders:[], staff:[], upgrades:JSON.parse(JSON.stringify(UPGRADES)),
+    decors:[], achievements:[], branches:[],
     totalSold:0, totalCooked:0, totalDelivered:0, totalCombos:0, totalGrab:0,
     todayEarn:0, todaySpend:0, todaySold:0, todayCooked:0, todayDelivered:0,
-    history:[], weather:'sunny', reviewScore:0, reviewCount:0
+    history:[], weather:'sunny', reviewScore:0, reviewCount:0,
+    weeklySold:0, weeklyCook:0,
+    messages:[{from:'Cô Ba', text:'Con nhớ chăm sóc tiệm mì nhé!'}],
+    lastSpinDay:0
   };
 }
 
-  function loadGame() {
+ function loadGame() {
   try {
-    var s = localStorage.getItem('tiem_mi_cay_full');
+    var s = localStorage.getItem('tiem_mi_cay_ultimate');
     if (s) {
       var p = JSON.parse(s);
       var def = newGame();
@@ -447,15 +517,16 @@ function newGame() {
   return newGame();
 }
 function saveGame() {
-  localStorage.setItem('tiem_mi_cay_full', JSON.stringify(state));
-  showToast('💾 Đã lưu game!', 'success');
+  localStorage.setItem('tiem_mi_cay_ultimate', JSON.stringify(state));
+  showToast('💾 Đã lưu!', 'success');
 }
 function resetGame() {
-  if (!confirm('Chơi lại từ đầu? Mất hết dữ liệu!')) return;
-  localStorage.removeItem('tiem_mi_cay_full');
+  if (!confirm('Chơi lại từ đầu?')) return;
+  localStorage.removeItem('tiem_mi_cay_ultimate');
   state = newGame();
-  khachQueue = [];
+  khachQueue = []; cookSlots = [];
   initMissions(); initOrders(); spawnCustomers();
+  recalcCookSlots();
   render();
   showToast('🔄 Chơi lại!');
 }
@@ -464,7 +535,7 @@ function byId(id){ return document.getElementById(id); }
 
 function getCookTime() {
   var up = state.upgrades.find(function(u){ return u.id==='bep'; });
-  return Math.max(1000, BASE_COOK_TIME - up.level * 500);
+  return Math.max(3000, BASE_COOK_TIME - up.level * 1000);
 }
 function getMiPrice(spicy) {
   var mult = SPICY[spicy-1].mult;
@@ -491,15 +562,56 @@ function getStarBonus() {
   return b;
 }
 function getPatienceTime(cust) {
-  var base = 20000;
   var mult = cust.patience;
   var hasPV = state.staff.some(function(s){ return s.type==='phucvu'; });
   if (hasPV) mult *= 1.3;
-  return base * mult;
+  return 20000 * mult;
 }
 
-// =================== RENDER ===================
-function render() {
+// ============ COOK SLOTS ============
+function recalcCookSlots() {
+  var needed = 1;
+  for (var i=0;i<state.staff.length;i++) {
+    if (state.staff[i].type==='daubep') needed += 1;
+    if (state.staff[i].type==='bepTruong') needed += 2;
+  }
+  while (cookSlots.length < needed) {
+    cookSlots.push({id:cookSlots.length, busy:false, spicy:3, start:0, duration:0, chefName:'Bạn'});
+  }
+  while (cookSlots.length > needed) cookSlots.pop();
+}
+
+function startCook() {
+  var freeSlot = null;
+  for (var i=0;i<cookSlots.length;i++) if (!cookSlots[i].busy) { freeSlot = cookSlots[i]; break; }
+  if (!freeSlot) { showToast('Tất cả bếp đang bận!', 'error'); return; }
+  if (state.kho.mi<1 || state.kho.thit<1 || state.kho.rau<1 || state.kho.ot<1) {
+    showToast('Thiếu nguyên liệu!', 'error'); return;
+  }
+  state.kho.mi--; state.kho.thit--; state.kho.rau--; state.kho.ot--;
+  freeSlot.busy = true;
+  freeSlot.spicy = selectedSpicy;
+  freeSlot.start = Date.now();
+  freeSlot.duration = getCookTime();
+  freeSlot.chefName = 'Bạn';
+  renderCookZone();
+  showToast('🔥 Nấu cấp ' + selectedSpicy + '!', 'success');
+}
+
+function finishSlotCook(slot) {
+  state.cookedBySpicy[slot.spicy] = (state.cookedBySpicy[slot.spicy]||0) + 1;
+  state.totalCooked++; state.todayCooked++; state.weeklyCook++;
+  addXP(5);
+  updateMission('cook', 1);
+  slot.busy = false;
+  slot.start = 0;
+  renderCookZone();
+  renderCooked();
+  renderSell();
+  showToast('🍜 Xong 1 tô cấp ' + slot.spicy + '!', 'success');
+}
+
+  function render() {
   byId('day').textContent = state.day;
   byId('money').textContent = fmt(state.money);
   byId('level').textContent = state.level;
@@ -508,9 +620,11 @@ function render() {
   byId('stars').textContent = state.stars.toFixed(1) + '★';
   byId('shop-name').textContent = state.shopName;
   byId('chapter').textContent = state.chapter;
+  byId('chapter-name').textContent = CHAPTER_NAMES[state.chapter-1] || '';
   var w = WEATHERS.find(function(x){ return x.id===state.weather; });
   byId('weather-top').textContent = w ? w.emoji : '☀️';
-  document.title = state.shopName + ' - Game';
+  byId('staff-count').textContent = state.staff.length;
+  document.title = state.shopName;
   byId('xp-fill').style.width = ((state.xp/state.xpMax)*100) + '%';
   var sh = '';
   for (var i=1;i<=5;i++) sh += (i<=Math.floor(state.stars))?'⭐':(i-0.5<=state.stars?'✨':'☆');
@@ -518,141 +632,159 @@ function render() {
   byId('btn-open').textContent = '🌙 Đóng cửa & sang ngày ' + (state.day + 1);
   var sal = 0;
   for (var s=0;s<state.staff.length;s++) sal += state.staff[s].salary;
-  byId('daily-cost').textContent = '💡 Điện nước: ' + fmt(COST_PER_DAY) + ' • Lương NV: ' + fmt(sal);
-  byId('cook-level').textContent = 'Thời gian: ' + (getCookTime()/1000) + 's/tô';
+  byId('daily-cost').textContent = '💡 Điện nước: ' + fmt(COST_PER_DAY) + ' • Lương: ' + fmt(sal);
+  byId('cook-level').textContent = 'Mỗi tô: ' + (getCookTime()/1000) + 's • ' + cookSlots.length + ' bếp';
+  byId('cook-info').textContent = 'Giá cấp ' + selectedSpicy + ': ' + fmt(getMiPrice(selectedSpicy));
   renderKho(); renderDrinks(); renderSpicyPicker();
-  renderCooked(); renderSell(); renderCombos();
-  renderKhach(); renderStaff(); renderMissions();
+  renderCookZone(); renderCooked(); renderSell(); renderCombos();
+  renderKhach(); renderStaff(); renderMissions(); renderWeeklyMissions();
   renderOrders(); renderGrab(); renderRank();
   renderUpgrades(); renderDecors(); renderAchievements();
-  renderStats(); renderChart();
+  renderStats(); renderChart(); renderChefActivity(); renderBranches(); renderMessages();
+  renderStoryPanel();
 }
 
 function renderKho() {
-  var html = '';
+  var h = '';
   for (var i=0;i<INGREDIENTS.length;i++) {
     var ing = INGREDIENTS[i];
-    var q = state.kho[ing.id] || 0;
+    var q = state.kho[ing.id]||0;
     var low = q<=1?' low':'';
-    html += '<div class="ingredient"><div class="ing-icon">' + ing.emoji + '</div>';
-    html += '<div class="ing-info"><div class="ing-name">' + ing.name + '</div>';
-    html += '<div class="ing-qty' + low + '">Còn: ' + q + '</div></div>';
-    html += '<button class="btn-buy" ' + (state.money>=ing.price?'':'disabled') + ' onclick="buyIng(\'' + ing.id + '\',1)">+' + (ing.price/1000) + 'k</button>';
-    html += '<button class="btn-buy bulk" ' + (state.money>=ing.price*10?'':'disabled') + ' onclick="buyIng(\'' + ing.id + '\',10)">x10</button>';
-    html += '</div>';
+    h += '<div class="ingredient"><div class="ing-icon">' + ing.emoji + '</div>';
+    h += '<div class="ing-info"><div class="ing-name">' + ing.name + '</div>';
+    h += '<div class="ing-qty' + low + '">Còn: ' + q + '</div></div>';
+    h += '<button class="btn-buy" ' + (state.money>=ing.price?'':'disabled') + ' onclick="buyIng(\'' + ing.id + '\',1)">+' + (ing.price/1000) + 'k</button>';
+    h += '<button class="btn-buy bulk" ' + (state.money>=ing.price*10?'':'disabled') + ' onclick="buyIng(\'' + ing.id + '\',10)">x10</button>';
+    h += '</div>';
   }
-  byId('kho-list').innerHTML = html;
+  byId('kho-list').innerHTML = h;
 }
 
 function renderDrinks() {
-  var html = '';
+  var h = '';
   for (var i=0;i<DRINKS.length;i++) {
     var d = DRINKS[i];
-    var q = state.drinks[d.id] || 0;
-    html += '<div class="drink-item"><div class="drink-icon">' + d.emoji + '</div>';
-    html += '<div class="drink-info"><div class="drink-name">' + d.name + '</div>';
-    html += '<div class="drink-qty">Còn: ' + q + ' • Bán: ' + fmt(d.price) + '</div></div>';
-    html += '<button class="btn-buy" ' + (state.money>=d.cost?'':'disabled') + ' onclick="buyDrink(\'' + d.id + '\')">+' + (d.cost/1000) + 'k</button>';
-    html += '</div>';
+    var q = state.drinks[d.id]||0;
+    h += '<div class="drink-item"><div class="drink-icon">' + d.emoji + '</div>';
+    h += '<div class="drink-info"><div class="drink-name">' + d.name + '</div>';
+    h += '<div class="drink-qty">Còn: ' + q + ' • Bán: ' + fmt(d.price) + '</div></div>';
+    h += '<button class="btn-buy" ' + (state.money>=d.cost?'':'disabled') + ' onclick="buyDrink(\'' + d.id + '\')">+' + (d.cost/1000) + 'k</button>';
+    h += '</div>';
   }
-  byId('drink-list').innerHTML = html;
+  byId('drink-list').innerHTML = h;
 }
 
 function renderSpicyPicker() {
-  var html = '';
+  var h = '';
   for (var i=0;i<SPICY.length;i++) {
     var s = SPICY[i];
-    var cls = selectedSpicy===s.level?' selected':'';
-    var sel = selectedSpicy===s.level?'border:2px solid #fff;transform:scale(1.1)':'';
-    html += '<button style="background:' + s.color + ';color:#fff;border:none;padding:8px 2px;border-radius:8px;font-family:inherit;font-size:11px;font-weight:800;cursor:pointer;' + sel + '" onclick="selectSpicy(' + s.level + ')">C' + s.level + '</button>';
+    var sel = selectedSpicy===s.level?' selected':'';
+    h += '<button class="spicy-btn' + sel + '" style="background:' + s.color + '" onclick="selectSpicy(' + s.level + ')">' + s.name + '</button>';
   }
-  byId('spicy-picker').innerHTML = html;
-  byId('cook-info').textContent = 'Giá bán cấp ' + selectedSpicy + ': ' + fmt(getMiPrice(selectedSpicy));
+  byId('spicy-picker').innerHTML = h;
 }
-function selectSpicy(l){ selectedSpicy=l; renderSpicyPicker(); }
+function selectSpicy(l){ selectedSpicy=l; renderSpicyPicker(); byId('cook-info').textContent='Giá cấp ' + l + ': ' + fmt(getMiPrice(l)); }
+
+function renderCookZone() {
+  var h = '';
+  for (var i=0;i<cookSlots.length;i++) {
+    var sl = cookSlots[i];
+    var cls = 'cook-slot' + (sl.busy?' active':' empty-slot');
+    h += '<div class="' + cls + '">';
+    if (sl.busy) {
+      var sp = SPICY[sl.spicy-1];
+      h += '<div class="chef-badge">' + (sl.chefName==='Bạn'?'👤':'🤖') + '</div>';
+      h += '<span class="slot-pot cooking">🍲</span>';
+      h += '<div class="slot-chef">' + sl.chefName + '</div>';
+      h += '<div class="slot-status" style="color:' + sp.color + '">Nấu ' + sp.name + '</div>';
+      h += '<div class="slot-progress"><div class="slot-progress-fill" id="slot-fill-' + i + '"></div></div>';
+    } else {
+      h += '<span class="slot-pot">🍲</span>';
+      h += '<div class="slot-chef">Bếp ' + (i+1) + '</div>';
+      h += '<div class="slot-status" style="opacity:.5">Trống</div>';
+    }
+    h += '</div>';
+  }
+  byId('cook-zone').innerHTML = h;
+}
 
 function renderCooked() {
-  var html = '';
-  var total = 0;
+  var h = '', total = 0;
   for (var i=1;i<=7;i++) total += (state.cookedBySpicy[i]||0);
   if (total === 0) { byId('cooked-list').innerHTML = '<div class="empty">Chưa có mì chín</div>'; return; }
   for (var j=1;j<=7;j++) {
     var q = state.cookedBySpicy[j]||0;
     if (q === 0) continue;
     var sp = SPICY[j-1];
-    html += '<div class="cooked-item"><div><strong>' + q + ' tô cấp ' + j + '</strong><small style="display:block;opacity:.7;font-size:11px">Giá: ' + fmt(getMiPrice(j)) + '</small></div>';
-    html += '<button class="btn-sell" style="background:' + sp.color + ';color:#fff" onclick="sellMi(' + j + ')">Bán</button></div>';
+    h += '<div class="cooked-item"><div><strong>' + q + ' tô ' + sp.name + '</strong>';
+    h += '<small style="display:block;opacity:.7;font-size:11px">Giá: ' + fmt(getMiPrice(j)) + '</small></div>';
+    h += '<button class="btn-sell" style="background:' + sp.color + ';color:#fff" onclick="sellMi(' + j + ')">Bán</button></div>';
   }
-  byId('cooked-list').innerHTML = html;
+  byId('cooked-list').innerHTML = h;
 }
 
 function renderSell() {
-  var html = '';
   var total = 0;
   for (var i=1;i<=7;i++) total += (state.cookedBySpicy[i]||0);
-  if (total === 0) { byId('sell-list').innerHTML = '<div class="empty">Chưa có mì để bán</div>'; return; }
-  html += '<div style="font-size:12px;opacity:.7;margin-bottom:8px">Bấm để bán 1 tô cấp tương ứng:</div>';
-  html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">';
+  if (total === 0) { byId('sell-list').innerHTML = '<div class="empty">Chưa có mì</div>'; return; }
+  var h = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">';
   for (var j=1;j<=7;j++) {
     var q = state.cookedBySpicy[j]||0;
     var sp = SPICY[j-1];
-    html += '<button class="btn-sell" style="background:' + sp.color + ';color:#fff;font-size:11px;padding:8px 4px;opacity:' + (q>0?1:0.3) + '" onclick="sellMi(' + j + ')">C' + j + '<br><small>' + q + ' tô</small></button>';
+    h += '<button class="btn-sell" style="background:' + sp.color + ';color:#fff;font-size:11px;padding:8px 4px;opacity:' + (q>0?1:0.3) + '" onclick="sellMi(' + j + ')">' + sp.name + '<br><small>' + q + ' tô</small></button>';
   }
-  html += '</div>';
-  byId('sell-list').innerHTML = html;
+  h += '</div>';
+  byId('sell-list').innerHTML = h;
 }
 
 function renderCombos() {
-  var html = '';
+  var h = '';
   for (var i=0;i<COMBOS.length;i++) {
     var c = COMBOS[i];
-    html += '<div class="cooked-item"><div><strong>' + c.name + '<span class="combo-tag">-10%</span></strong>';
-    html += '<small style="display:block;opacity:.7;font-size:11px">' + c.items + '</small>';
-    html += '<small style="display:block;color:#ffc300;font-weight:700;font-size:12px">' + fmt(c.price) + ' <s style="opacity:.5;font-weight:400">' + fmt(c.original) + '</s></small></div>';
-    html += '<button class="btn-sell" onclick="sellCombo(\'' + c.id + '\')">Bán</button></div>';
+    h += '<div class="cooked-item"><div><strong>' + c.name + '<span class="combo-tag">-10%</span></strong>';
+    h += '<small style="display:block;opacity:.7;font-size:11px">' + c.items + '</small>';
+    h += '<small style="display:block;color:#ffc300;font-weight:700;font-size:12px">' + fmt(c.price) + '</small></div>';
+    h += '<button class="btn-sell" onclick="sellCombo(\'' + c.id + '\')">Bán</button></div>';
   }
-  byId('combo-list').innerHTML = html;
+  byId('combo-list').innerHTML = h;
 }
 
 function renderKhach() {
   byId('khach-count').textContent = khachQueue.length + ' khách';
-  if (khachQueue.length === 0) {
-    byId('khach-list').innerHTML = '<div class="empty">Chưa có khách, chờ chút nhé...</div>';
-    return;
-  }
-  var html = '';
+  if (khachQueue.length === 0) { byId('khach-list').innerHTML = '<div class="empty">Chưa có khách...</div>'; return; }
+  var h = '';
   for (var i=0;i<khachQueue.length;i++) {
     var k = khachQueue[i];
     var sp = SPICY[k.spicy-1];
     var remain = Math.max(0, k.expire - Date.now());
     var pct = (remain / k.patience) * 100;
-    html += '<div class="order"><div class="order-info">';
-    html += '<div class="order-name">' + k.cust.emoji + ' ' + k.cust.name + '</div>';
-    html += '<div class="order-detail">Muốn ' + k.qty + ' tô <span class="spicy-badge" style="background:' + sp.color + '">' + sp.name + '</span> • Tip ' + Math.floor(k.cust.tip*100) + '%</div>';
-    html += '<div class="patience-bar"><div class="patience-fill" style="width:' + pct + '%"></div></div>';
-    html += '</div>';
-    html += '<button class="btn-deliver" onclick="serveKhach(' + i + ')">Phục vụ</button>';
-    html += '</div>';
+    h += '<div class="order"><div class="order-info">';
+    h += '<div class="order-name">' + k.cust.emoji + ' ' + k.cust.name + '</div>';
+    h += '<div class="order-detail">Muốn ' + k.qty + ' tô <span class="spicy-badge" style="background:' + sp.color + '">' + sp.name + '</span> • Tip ' + Math.floor(k.cust.tip*100) + '%</div>';
+    h += '<div class="patience-bar"><div class="patience-fill" style="width:' + pct + '%"></div></div>';
+    h += '</div><button class="btn-deliver" onclick="serveKhach(' + i + ')">Phục vụ</button></div>';
   }
-  byId('khach-list').innerHTML = html;
+  byId('khach-list').innerHTML = h;
 }
 
-function renderStaff() {
+  function renderStaff() {
   var sal = 0;
   for (var i=0;i<state.staff.length;i++) sal += state.staff[i].salary;
   byId('staff-info').textContent = state.staff.length + ' NV • ' + fmt(sal) + '/ngày';
   var hired = byId('staff-hired');
   if (state.staff.length === 0) {
-    hired.innerHTML = '<div class="empty">Chưa thuê NV nào</div>';
+    hired.innerHTML = '<div class="empty">Chưa thuê NV</div>';
   } else {
     var h = '';
     for (var j=0;j<state.staff.length;j++) {
       var s = state.staff[j];
       var t = STAFF_TYPES.find(function(x){ return x.id===s.type; });
-      h += '<div class="staff"><div class="staff-avatar">' + t.emoji + '</div>';
+      var working = s.working || false;
+      h += '<div class="staff"><div class="staff-avatar ' + (working?'working':'') + '">' + t.emoji + '</div>';
       h += '<div class="staff-info"><div class="staff-name">' + s.name + '</div>';
       h += '<div class="staff-role">' + t.name + ' • ' + t.desc + '</div>';
-      h += '<div class="staff-salary">💰 ' + fmt(t.salary) + '/ngày</div></div>';
+      h += '<div class="staff-status" id="staff-status-' + j + '">' + (s.status || '⏳ Chờ việc...') + '</div>';
+      h += '</div>';
       h += '<button class="btn-fire" onclick="fireStaff(' + j + ')">Sa thải</button></div>';
     }
     hired.innerHTML = h;
@@ -660,7 +792,7 @@ function renderStaff() {
   var shop = '';
   for (var k=0;k<STAFF_TYPES.length;k++) {
     var st = STAFF_TYPES[k];
-    var can = state.money >= st.salary * 2;
+    var can = state.money >= st.salary*2;
     shop += '<div class="staff"><div class="staff-avatar">' + st.emoji + '</div>';
     shop += '<div class="staff-info"><div class="staff-name">' + st.name + '</div>';
     shop += '<div class="staff-role">' + st.desc + '</div>';
@@ -670,43 +802,81 @@ function renderStaff() {
   byId('staff-shop').innerHTML = shop;
 }
 
+function renderChefActivity() {
+  var el = byId('chef-activity');
+  var h = '';
+  // Người chơi
+  var playerSlots = 0, playerBusy = 0;
+  for (var i=0;i<cookSlots.length;i++) {
+    if (cookSlots[i].chefName==='Bạn') {
+      playerSlots++;
+      if (cookSlots[i].busy) playerBusy++;
+    }
+  }
+  if (playerSlots > 0) {
+    h += '<div class="staff"><div class="staff-avatar ' + (playerBusy>0?'working':'') + '">👤</div>';
+    h += '<div class="staff-info"><div class="staff-name">Bạn (người chơi)</div>';
+    h += '<div class="staff-role">' + playerSlots + ' bếp • ' + playerBusy + ' đang nấu</div>';
+    h += '</div></div>';
+  }
+  // Nhân viên đầu bếp
+  for (var j=0;j<state.staff.length;j++) {
+    var s = state.staff[j];
+    if (s.type !== 'daubep' && s.type !== 'bepTruong' && s.type !== 'phubep') continue;
+    var t = STAFF_TYPES.find(function(x){ return x.id===s.type; });
+    h += '<div class="staff"><div class="staff-avatar ' + (s.working?'working':'') + '">' + t.emoji + '</div>';
+    h += '<div class="staff-info"><div class="staff-name">' + s.name + '</div>';
+    h += '<div class="staff-role">' + t.name + '</div>';
+    h += '<div class="staff-status">' + (s.status || '⏳ Chờ việc...') + '</div>';
+    h += '</div></div>';
+  }
+  if (h === '') h = '<div class="empty">Chưa có đầu bếp nào</div>';
+  el.innerHTML = h;
+}
+
 function renderMissions() {
-  var html = '';
+  var h = '';
   for (var i=0;i<state.missions.length;i++) {
     var m = state.missions[i];
-    var cls = m.done ? 'mission done' : 'mission';
-    html += '<div class="' + cls + '"><div class="mission-head"><div class="mission-name">' + m.name + '</div>';
-    html += '<div class="mission-progress">' + m.current + '/' + m.target + (m.done?' ✓':'') + '</div></div>';
-    html += '<div class="mission-reward">Thưởng ' + (m.reward/1000) + 'k • +' + m.xp + ' XP</div></div>';
+    var cls = m.done?'mission done':'mission';
+    h += '<div class="' + cls + '"><div class="mission-head"><div class="mission-name">' + m.name + '</div>';
+    h += '<div class="mission-progress">' + m.current + '/' + m.target + (m.done?' ✓':'') + '</div></div>';
+    h += '<div class="mission-reward">Thưởng ' + (m.reward/1000) + 'k • +' + m.xp + ' XP</div></div>';
   }
-  byId('mission-list').innerHTML = html;
+  byId('mission-list').innerHTML = h;
+}
+
+function renderWeeklyMissions() {
+  var h = '<div class="mission"><div class="mission-head"><div class="mission-name">📅 Bán 200 tô/tuần</div>';
+  h += '<div class="mission-progress">' + state.weeklySold + '/200</div></div>';
+  h += '<div class="mission-reward">Thưởng 500k</div></div>';
+  byId('weekly-mission-list').innerHTML = h;
 }
 
 function renderOrders() {
   var el = byId('order-list');
-  if (state.orders.length === 0) { el.innerHTML = '<div class="empty">Hết đơn!</div>'; return; }
-  var html = '';
+  if (state.orders.length === 0) { el.innerHTML = '<div class="empty">Hết đơn</div>'; return; }
+  var h = '';
   for (var i=0;i<state.orders.length;i++) {
     var o = state.orders[i];
     var sp = SPICY[o.spicy-1];
-    var cooked = state.cookedBySpicy[o.spicy] || 0;
+    var cooked = state.cookedBySpicy[o.spicy]||0;
     var can = cooked >= o.qty;
-    html += '<div class="order"><div class="order-info">';
-    html += '<div class="order-name">' + o.cust.emoji + ' ' + o.cust.name + '</div>';
-    html += '<div class="order-detail">' + o.qty + ' tô <span class="spicy-badge" style="background:' + sp.color + '">' + sp.name + '</span> • ' + fmt(o.price) + '</div>';
-    html += '</div><button class="btn-deliver" ' + (can?'':'disabled') + ' onclick="deliverOrder(' + o.id + ')">Giao</button></div>';
+    h += '<div class="order"><div class="order-info">';
+    h += '<div class="order-name">' + o.cust.emoji + ' ' + o.cust.name + '</div>';
+    h += '<div class="order-detail">' + o.qty + ' tô <span class="spicy-badge" style="background:' + sp.color + '">' + sp.name + '</span> • ' + fmt(o.price) + '</div>';
+    h += '</div><button class="btn-deliver" ' + (can?'':'disabled') + ' onclick="deliverOrder(' + o.id + ')">Giao</button></div>';
   }
-  el.innerHTML = html;
+  el.innerHTML = h;
 }
 
 function renderGrab() {
   var el = byId('grab-panel');
   if (state.orders.length === 0) { el.innerHTML = '<div class="empty">Không có đơn</div>'; return; }
   var fee = getGrabFee();
-  var h = '<div class="grab-card"><div class="grab-title">🛵 GrabExpress</div>';
-  h += '<div class="grab-desc">Giao hết đơn • Phí ' + fmt(fee) + '/đơn</div>';
-  h += '<button class="btn-grab" onclick="grabDeliverAll()">🚀 Đặt Grab (' + state.orders.length + ' đơn)</button></div>';
-  el.innerHTML = h;
+  el.innerHTML = '<div class="grab-card"><div class="grab-title">🛵 GrabExpress</div>' +
+    '<div class="grab-desc">Phí ' + fmt(fee) + '/đơn</div>' +
+    '<button class="btn-grab" onclick="grabDeliverAll()">🚀 Đặt Grab (' + state.orders.length + ')</button></div>';
 }
 
 function renderRank() {
@@ -718,12 +888,12 @@ function renderRank() {
     {name:'Tiệm Mì Sinh Viên', score:100000 + state.day*5000}
   ];
   var all = bots.slice();
-  all.push({name: state.shopName, score: state.money + state.totalSold*35000, me:true});
+  all.push({name:state.shopName, score:state.money + state.totalSold*35000, me:true});
   all.sort(function(a,b){ return b.score-a.score; });
   var h = '';
   for (var i=0;i<all.length;i++) {
     var r = all[i];
-    var cls = 'rank-item' + (r.me?' me':'') + (i===0?' top1':'');
+    var cls = 'rank-item' + (r.me?' me':'');
     h += '<div class="' + cls + '"><div class="rank-num">' + (i+1) + '</div>';
     h += '<div class="rank-name">' + r.name + (r.me?' (bạn)':'') + '</div>';
     h += '<div class="rank-score">' + fmt(r.score) + '</div></div>';
@@ -749,6 +919,21 @@ function renderUpgrades() {
   byId('upgrade-list').innerHTML = h;
 }
 
+function renderBranches() {
+  var h = '';
+  for (var i=0;i<BRANCHES.length;i++) {
+    var b = BRANCHES[i];
+    var owned = state.branches.indexOf(b.id) > -1;
+    var can = !owned && state.money >= b.price;
+    h += '<div class="branch-item ' + (owned?'owned':'') + '"><div class="branch-icon">' + b.emoji + '</div>';
+    h += '<div class="branch-info"><div class="branch-name">' + b.name + '</div>';
+    h += '<div class="branch-desc">+' + fmt(b.income) + '/ngày</div></div>';
+    h += owned ? '<button class="btn-upgrade" disabled>✓</button>' : '<button class="btn-upgrade" ' + (can?'':'disabled') + ' onclick="buyBranch(\'' + b.id + '\')">' + fmt(b.price) + '</button>';
+    h += '</div>';
+  }
+  byId('branch-list').innerHTML = h;
+}
+
 function renderDecors() {
   var h = '';
   for (var i=0;i<DECORS.length;i++) {
@@ -758,7 +943,7 @@ function renderDecors() {
     h += '<div class="decor-item ' + (owned?'owned':'') + '"><div class="decor-icon">' + d.emoji + '</div>';
     h += '<div class="decor-info"><div class="decor-name">' + d.name + '</div>';
     h += '<div class="decor-desc">+' + d.stars + '⭐</div></div>';
-    h += owned ? '<button class="btn-decor" disabled>✓ Đã mua</button>' : '<button class="btn-decor" ' + (can?'':'disabled') + ' onclick="buyDecor(\'' + d.id + '\')">' + fmt(d.price) + '</button>';
+    h += owned ? '<button class="btn-decor" disabled>✓</button>' : '<button class="btn-decor" ' + (can?'':'disabled') + ' onclick="buyDecor(\'' + d.id + '\')">' + fmt(d.price) + '</button>';
     h += '</div>';
   }
   byId('decor-list').innerHTML = h;
@@ -768,13 +953,13 @@ function renderAchievements() {
   var h = '';
   for (var i=0;i<ACHIEVEMENTS.length;i++) {
     var a = ACHIEVEMENTS[i];
-    var unlocked = state.achievements.indexOf(a.id) > -1;
-    h += '<div class="achievement ' + (unlocked?'unlocked':'') + '">';
+    var un = state.achievements.indexOf(a.id) > -1;
+    h += '<div class="achievement ' + (un?'unlocked':'') + '">';
     h += '<div class="ach-icon">' + a.icon + '</div>';
     h += '<div class="ach-info"><div class="ach-name">' + a.name + '</div>';
     h += '<div class="ach-desc">' + a.desc + '</div>';
     h += '<div class="ach-reward">💰 ' + fmt(a.reward) + '</div></div>';
-    h += unlocked ? '<div style="font-size:20px">✅</div>' : '<div style="opacity:.3;font-size:20px">🔒</div>';
+    h += un ? '<div>✅</div>' : '<div style="opacity:.3">🔒</div>';
     h += '</div>';
   }
   byId('achievement-list').innerHTML = h;
@@ -785,18 +970,15 @@ function renderStats() {
   h += '<div class="stat-row"><span>🍜 Nấu hôm nay</span><span>' + state.todayCooked + ' tô</span></div>';
   h += '<div class="stat-row"><span>💰 Bán hôm nay</span><span>' + state.todaySold + ' tô</span></div>';
   h += '<div class="stat-row"><span>🛵 Giao hôm nay</span><span>' + state.todayDelivered + ' đơn</span></div>';
-  h += '<div class="stat-row"><span>📈 Thu hôm nay</span><span style="color:#4ade80">+' + fmt(state.todayEarn) + '</span></div>';
-  h += '<div class="stat-row"><span>📉 Chi hôm nay</span><span style="color:#ff6b6b">-' + fmt(state.todaySpend) + '</span></div>';
-  h += '<div class="stat-row"><span>⭐ Đánh giá TB</span><span>' + (state.reviewCount>0?(state.reviewScore/state.reviewCount).toFixed(1):0) + '/5 (' + state.reviewCount + ')</span></div>';
+  h += '<div class="stat-row"><span>📈 Thu</span><span style="color:#4ade80">+' + fmt(state.todayEarn) + '</span></div>';
+  h += '<div class="stat-row"><span>📉 Chi</span><span style="color:#ff6b6b">-' + fmt(state.todaySpend) + '</span></div>';
+  h += '<div class="stat-row"><span>⭐ Đánh giá</span><span>' + (state.reviewCount>0?(state.reviewScore/state.reviewCount).toFixed(1):0) + '/5 (' + state.reviewCount + ')</span></div>';
   byId('stats-today').innerHTML = h;
 }
 
 function renderChart() {
   var el = byId('chart-7days');
-  if (!state.history || state.history.length === 0) {
-    el.innerHTML = '<div class="empty">Chưa có dữ liệu</div>';
-    return;
-  }
+  if (!state.history || state.history.length === 0) { el.innerHTML = '<div class="empty">Chưa có dữ liệu</div>'; return; }
   var last = state.history.slice(-7);
   var max = 0;
   for (var i=0;i<last.length;i++) if (last[i].earn > max) max = last[i].earn;
@@ -804,302 +986,71 @@ function renderChart() {
   var h = '<div class="chart-bar">';
   for (var j=0;j<last.length;j++) {
     var item = last[j];
-    var pct = (item.earn / max) * 100;
-    h += '<div class="chart-col">';
-    h += '<div class="chart-val">' + Math.floor(item.earn/1000) + 'k</div>';
+    var pct = (item.earn/max)*100;
+    h += '<div class="chart-col"><div class="chart-val">' + Math.floor(item.earn/1000) + 'k</div>';
     h += '<div class="chart-fill" style="height:' + Math.max(4,pct) + 'px"></div>';
-    h += '<div class="chart-label">N' + item.day + '</div>';
-    h += '</div>';
+    h += '<div class="chart-label">N' + item.day + '</div></div>';
   }
   h += '</div>';
   el.innerHTML = h;
 }
 
- function buyIng(id, qty) {
-  var ing = INGREDIENTS.find(function(x){ return x.id===id; });
-  var total = ing.price * qty;
-  if (state.money < total) { showToast('Không đủ tiền!', 'error'); return; }
-  state.money -= total;
-  state.todaySpend += total;
-  state.kho[id] = (state.kho[id]||0) + qty;
-  render();
-  showToast('Mua ' + qty + ' ' + ing.name, 'success');
-}
-function buyDrink(id) {
-  var d = DRINKS.find(function(x){ return x.id===id; });
-  if (state.money < d.cost) { showToast('Không đủ tiền!', 'error'); return; }
-  state.money -= d.cost;
-  state.todaySpend += d.cost;
-  state.drinks[id] = (state.drinks[id]||0) + 1;
-  render();
-  showToast('Mua ' + d.name, 'success');
-}
-function startCook() {
-  if (state.cooking) return;
-  if (state.kho.mi<1 || state.kho.thit<1 || state.kho.rau<1 || state.kho.ot<1) {
-    showToast('Thiếu nguyên liệu!', 'error'); return;
-  }
-  state.cooking = true;
-  state.cookingSpicy = selectedSpicy;
-  var duration = getCookTime();
-  var btn = byId('btn-cook'), pot = byId('pot'), status = byId('cook-status');
-  var prog = byId('progress'), fill = byId('progress-fill');
-  btn.disabled = true; pot.classList.add('cooking');
-  status.textContent = '🔥 Đang nấu cấp ' + selectedSpicy + '...';
-  prog.classList.add('active'); fill.style.width = '0%';
-  var start = Date.now();
-  var timer = setInterval(function() {
-    var el = Date.now() - start;
-    fill.style.width = Math.min(100, (el/duration)*100) + '%';
-    if (el >= duration) { clearInterval(timer); finishCook(); }
-  }, 50);
-}
-function finishCook() {
-  state.kho.mi--; state.kho.thit--; state.kho.rau--; state.kho.ot--;
-  state.cookedBySpicy[state.cookingSpicy] = (state.cookedBySpicy[state.cookingSpicy]||0) + 1;
-  state.totalCooked++; state.todayCooked++;
-  state.cooking = false;
-  addXP(5);
-  updateMission('cook', 1);
-  var pot = byId('pot'), btn = byId('btn-cook'), status = byId('cook-status'), prog = byId('progress');
-  pot.classList.remove('cooking'); pot.textContent = '🍜';
-  btn.disabled = false;
-  status.textContent = '✅ Mì cấp ' + state.cookingSpicy + ' chín!';
-  prog.classList.remove('active');
-  setTimeout(function(){ pot.textContent = '🍲'; }, 800);
-  render();
-  showToast('🍜 Nấu xong 1 tô cấp ' + state.cookingSpicy, 'success');
-}
-function sellMi(spicy) {
-  if ((state.cookedBySpicy[spicy]||0) <= 0) { showToast('Không có mì cấp ' + spicy, 'error'); return; }
-  var price = getMiPrice(spicy);
-  state.cookedBySpicy[spicy]--;
-  state.money += price; state.todayEarn += price;
-  state.totalSold++; state.todaySold++;
-  addXP(3);
-  updateMission('sell', 1);
-  render();
-  showToast('💰 Bán cấp ' + spicy + ' +' + fmt(price), 'success');
-}
-function sellCombo(comboId) {
-  var c = COMBOS.find(function(x){ return x.id===comboId; });
-  if (!c) return;
-  if ((state.cookedBySpicy[c.spicy]||0) < c.mì) { showToast('Cần ' + c.mì + ' tô cấp ' + c.spicy, 'error'); return; }
-  if ((state.drinks[c.drink]||0) < c.mì) { showToast('Cần ' + c.mì + ' đồ uống', 'error'); return; }
-  state.cookedBySpicy[c.spicy] -= c.mì;
-  state.drinks[c.drink] -= c.mì;
-  state.money += c.price; state.todayEarn += c.price;
-  state.totalSold += c.mì; state.todaySold += c.mì;
-  state.totalCombos++;
-  addXP(10);
-  updateMission('sell', c.mì);
-  render();
-  showToast('🎁 Bán combo +' + fmt(c.price), 'success');
-}
-function serveKhach(idx) {
-  var k = khachQueue[idx];
-  if (!k) return;
-  if ((state.cookedBySpicy[k.spicy]||0) < k.qty) {
-    showToast('Cần ' + k.qty + ' tô cấp ' + k.spicy, 'error'); return;
-  }
-  state.cookedBySpicy[k.spicy] -= k.qty;
-  var bonus = 1 + k.cust.tip + getStarBonus()*0.1;
-  var price = Math.floor(getMiPrice(k.spicy) * k.qty * bonus);
-  state.money += price; state.todayEarn += price;
-  state.totalSold += k.qty; state.todaySold += k.qty;
-  addXP(8);
-  state.reviewScore += 5; state.reviewCount++;
-  khachQueue.splice(idx,1);
-  updateMission('sell', k.qty);
-  render();
-  showToast('✅ Phục vụ +' + fmt(price), 'success');
-}
-function deliverOrder(orderId) {
-  var idx = -1;
-  for (var i=0;i<state.orders.length;i++) if (state.orders[i].id===orderId) { idx=i; break; }
-  if (idx<0) return;
-  var o = state.orders[idx];
-  if ((state.cookedBySpicy[o.spicy]||0) < o.qty) { showToast('Cần ' + o.qty + ' tô cấp ' + o.spicy, 'error'); return; }
-  state.cookedBySpicy[o.spicy] -= o.qty;
-  state.money += o.price; state.todayEarn += o.price;
-  state.totalDelivered++; state.todayDelivered++;
-  addXP(8);
-  state.orders.splice(idx,1);
-  updateMission('deliver', 1);
-  render();
-  showToast('🛵 Giao +' + fmt(o.price), 'success');
-}
-function grabDeliverAll() {
-  if (state.orders.length === 0) return;
-  var fee = getGrabFee();
-  var count = state.orders.length;
-  var totalFee = fee * count;
-  if (state.money < totalFee) { showToast('Cần ' + fmt(totalFee), 'error'); return; }
-  for (var i=0;i<state.orders.length;i++) {
-    if ((state.cookedBySpicy[state.orders[i].spicy]||0) < state.orders[i].qty) {
-      showToast('Không đủ mì cấp ' + state.orders[i].spicy, 'error'); return;
+function renderMessages() {
+  var h = '';
+  if (!state.messages || state.messages.length === 0) { h = '<div class="empty">Chưa có tin nhắn</div>'; }
+  else {
+    var recent = state.messages.slice(-5);
+    for (var i=0;i<recent.length;i++) {
+      h += '<div class="msg-bubble"><div class="msg-from">' + recent[i].from + '</div>' + recent[i].text + '</div>';
     }
   }
-  state.money -= totalFee; state.todaySpend += totalFee;
-  var earn = 0;
-  for (var j=0;j<state.orders.length;j++) {
-    var o = state.orders[j];
-    earn += o.price;
-    state.cookedBySpicy[o.spicy] -= o.qty;
-    state.totalDelivered++; state.todayDelivered++;
-    addXP(8);
-    updateMission('deliver', 1);
-  }
-  state.money += earn; state.todayEarn += earn;
-  state.totalGrab++;
-  var c = state.orders.length;
-  state.orders = [];
-  render();
-  showToast('🚀 Grab ' + c + ' đơn! +' + fmt(earn) + ' -' + fmt(totalFee), 'success');
-}
-function hireStaff(typeId) {
-  var t = STAFF_TYPES.find(function(x){ return x.id===typeId; });
-  if (state.money < t.salary*2) { showToast('Cần ' + fmt(t.salary*2), 'error'); return; }
-  var names = ['An','Bình','Cường','Dũng','Em','Phúc','Giang','Hà','Khang','Linh','Minh','Nam','Oanh','Phương','Quỳnh','Sơn','Tâm','Uyên','Vân'];
-  var n = names[Math.floor(Math.random()*names.length)] + ' ' + Math.floor(Math.random()*100);
-  state.staff.push({type:typeId, name:n, salary:t.salary, lastAction:Date.now()});
-  render();
-  showToast('👥 Thuê ' + t.name + '!', 'success');
-}
-function fireStaff(idx) {
-  if (!confirm('Sa thải?')) return;
-  state.staff.splice(idx,1);
-  render();
-  showToast('👋 Đã sa thải');
-}
-function buyUpgrade(id) {
-  var u = state.upgrades.find(function(x){ return x.id===id; });
-  var info = UPGRADES.find(function(x){ return x.id===id; });
-  if (u.level >= info.max) return;
-  var cost = Math.floor(info.base * Math.pow(info.mult, u.level));
-  if (state.money < cost) { showToast('Không đủ tiền!', 'error'); return; }
-  state.money -= cost; state.todaySpend += cost;
-  u.level++;
-  render();
-  showToast('📈 Nâng ' + info.name + ' Lv' + u.level, 'success');
-}
-function buyDecor(id) {
-  var d = DECORS.find(function(x){ return x.id===id; });
-  if (state.decors.indexOf(id) > -1) return;
-  if (state.money < d.price) { showToast('Không đủ tiền!', 'error'); return; }
-  state.money -= d.price; state.todaySpend += d.price;
-  state.decors.push(id);
-  render();
-  showToast('🎨 Mua ' + d.name, 'success');
+  byId('msg-list').innerHTML = h;
 }
 
-// =================== XP/MISSION/ACHIEVEMENT ===================
-function addXP(n) {
-  state.xp += n;
-  while (state.xp >= state.xpMax) levelUp();
-}
-function levelUp() {
-  state.xp -= state.xpMax;
-  state.level++;
-  state.xpMax = Math.floor(state.xpMax * 1.5);
-  state.stars = Math.min(5, state.stars + 0.3);
-  if (state.level % 5 === 0) {
-    state.chapter++;
-    showToast('📖 Chương ' + state.chapter + '!', 'gold');
-  }
-  showToast('⭐ LÊN CẤP ' + state.level + '!', 'gold');
-}
-function initMissions() {
-  var mult = 1 + Math.floor(state.day/5) * 0.5;
-  state.missions = [
-    {id:'cook', name:'Nấu ' + Math.floor(6*mult) + ' tô', target:Math.floor(6*mult), current:0, reward:20000, xp:30, done:false},
-    {id:'sell', name:'Bán ' + Math.floor(8*mult) + ' tô', target:Math.floor(8*mult), current:0, reward:25000, xp:30, done:false},
-    {id:'deliver', name:'Giao ' + Math.floor(2*mult) + ' đơn', target:Math.floor(2*mult), current:0, reward:30000, xp:40, done:false}
-  ];
-}
-function updateMission(id, inc) {
-  for (var i=0;i<state.missions.length;i++) {
-    var m = state.missions[i];
-    if (m.id===id && !m.done) {
-      m.current += inc;
-      if (m.current >= m.target) {
-        m.current = m.target; m.done = true;
-        state.money += m.reward; addXP(m.xp);
-        showToast('🎉 Xong NV: ' + m.name, 'gold');
-      }
-      break;
-    }
-  }
-}
-function checkAchievements() {
-  for (var i=0;i<ACHIEVEMENTS.length;i++) {
-    var a = ACHIEVEMENTS[i];
-    if (state.achievements.indexOf(a.id) > -1) continue;
-    if (a.check(state)) {
-      state.achievements.push(a.id);
-      state.money += a.reward;
-      showToast('🏅 ' + a.name + ' +' + fmt(a.reward), 'gold');
-    }
-  }
+function renderStoryPanel() {
+  var ch = state.chapter;
+  var story = STORIES[ch-1] || STORIES[STORIES.length-1];
+  byId('story-title').textContent = story.title;
+  byId('story-text').textContent = story.text;
 }
 
-// =================== CUSTOMERS ===================
-function spawnCustomers() {
-  if (khachQueue.length >= 6) return;
-  var w = WEATHERS.find(function(x){ return x.id===state.weather; });
-  var chance = 0.3 * (w?w.saleMult:1);
-  if (Math.random() > chance) return;
-  var cust = CUSTOMERS[Math.floor(Math.random()*CUSTOMERS.length)];
-  var maxSpicy = Math.min(7, state.level + 3);
-  var spicy = 1 + Math.floor(Math.random()*maxSpicy);
-  var qty = 1 + Math.floor(Math.random()*2);
-  var patience = getPatienceTime(cust);
-  khachQueue.push({
-    id: Date.now() + Math.random(),
-    cust: cust, spicy: spicy, qty: qty,
-    expire: Date.now() + patience,
-    patience: patience
-  });
-  renderKhach();
-}
-
-function initOrders() {
-  state.orders = [];
-  var w = WEATHERS.find(function(x){ return x.id===state.weather; });
-  var mult = w ? w.orderMult : 1;
-  var count = Math.floor((2 + Math.random()*3) * mult);
-  for (var i=0;i<count;i++) {
-    var cust = CUSTOMERS[Math.floor(Math.random()*CUSTOMERS.length)];
-    var maxSpicy = Math.min(7, state.level + 3);
-    var spicy = 1 + Math.floor(Math.random()*maxSpicy);
-    var qty = 1 + Math.floor(Math.random()*2);
-    var base = getMiPrice(spicy) * qty;
-    var bonus = 1 + cust.tip + getStarBonus()*0.1;
-    state.orders.push({
-      id: Date.now() + i + Math.random(),
-      cust: cust, qty: qty, spicy: spicy,
-      price: Math.floor(base * bonus)
-    });
-  }
-}
-
-// =================== NEXT DAY ===================
+  // ===== NEXT DAY =====
 function nextDay() {
   var sal = 0;
   for (var i=0;i<state.staff.length;i++) sal += state.staff[i].salary;
   var cost = COST_PER_DAY + sal;
-  if (state.money < cost) { showToast('Cần ' + fmt(cost) + '!', 'error'); return; }
+  if (state.money < cost) { showToast('Cần ' + fmt(cost), 'error'); return; }
   state.money -= cost;
-  state.history.push({day: state.day, earn: state.todayEarn, spend: state.todaySpend});
+  state.history.push({day:state.day, earn:state.todayEarn, spend:state.todaySpend});
   if (state.history.length > 30) state.history.shift();
+  // Thu nhập chi nhánh
+  for (var b=0;b<state.branches.length;b++) {
+    var br = BRANCHES.find(function(x){ return x.id===state.branches[b]; });
+    if (br) state.money += br.income;
+  }
+  // Weekly mission
+  if (state.weeklySold >= 200) {
+    state.money += 500000;
+    state.weeklySold = 0;
+    showToast('🎉 Xong NV tuần! +500k', 'gold');
+  }
   state.day++;
   state.todayEarn = 0; state.todaySpend = 0; state.todaySold = 0;
   state.todayCooked = 0; state.todayDelivered = 0;
   state.weather = WEATHERS[Math.floor(Math.random()*WEATHERS.length)].id;
   initMissions(); initOrders();
   khachQueue = [];
-  render();
-  saveGame();
+  // Tin nhắn random
+  if (Math.random() < 0.3) {
+    var msgs = [
+      {from:'Cô Ba', text:'Hôm nay con nhớ nghỉ ngơi nhé!'},
+      {from:'Anh Tư', text:'Tiệm đông khách quá, chúc mừng!'},
+      {from:'Bà Tư', text:'Tiệm nhà ngươi sẽ sớm phá sản thôi!'},
+      {from:'Khách VIP', text:'Mì ở đây ngon thật đấy!'}
+    ];
+    state.messages.push(msgs[Math.floor(Math.random()*msgs.length)]);
+  }
+  render(); saveGame();
   var w = WEATHERS.find(function(x){ return x.id===state.weather; });
   showToast('🌅 Ngày ' + state.day + ' • ' + w.emoji + ' ' + w.name, 'success');
   randomEvent();
@@ -1110,10 +1061,10 @@ function randomEvent() {
   var events = [
     {title:'🎉 Khách đông', desc:'Thêm 3 đơn online!', action:function(){ initOrders();initOrders();initOrders(); }},
     {title:'💸 Khuyến mãi', desc:'+20k tiền mặt!', action:function(){ state.money += 20000; }},
-    {title:'🔧 Bếp hỏng', desc:'-30k sửa chữa.', action:function(){ state.money = Math.max(0, state.money-30000); }},
-    {title:'⭐ Khách khen', desc:'+0.3 sao quán!', action:function(){ state.stars = Math.min(5, state.stars+0.3); }},
+    {title:'🔧 Bếp hỏng', desc:'-30k sửa chữa', action:function(){ state.money = Math.max(0,state.money-30000); }},
+    {title:'⭐ Khách khen', desc:'+0.3 sao!', action:function(){ state.stars = Math.min(5,state.stars+0.3); }},
     {title:'🎁 Quà tặng', desc:'+5 mỗi nguyên liệu!', action:function(){ for (var k in state.kho) state.kho[k]+=5; }},
-    {title:'📰 Báo đưa tin', desc:'Quán nổi tiếng! +0.5 sao', action:function(){ state.stars = Math.min(5, state.stars+0.5); }}
+    {title:'📰 Báo đưa tin', desc:'+0.5 sao!', action:function(){ state.stars = Math.min(5,state.stars+0.5); }}
   ];
   var ev = events[Math.floor(Math.random()*events.length)];
   ev.action();
@@ -1122,55 +1073,87 @@ function randomEvent() {
   openModal('modal-event');
 }
 
-// =================== GAME LOOP ===================
+// ===== GAME LOOP =====
 function startLoop() {
   if (gameLoopTimer) clearInterval(gameLoopTimer);
   gameLoopTimer = setInterval(function() {
     if (!state) return;
     var now = Date.now();
-    // Spawn khách
+    // SPAWN khách
     if (Math.random() < 0.15) spawnCustomers();
-    // Khách hết kiên nhẫn
+    // Hết kiên nhẫn
     for (var i=khachQueue.length-1;i>=0;i--) {
       if (khachQueue[i].expire < now) {
         khachQueue.splice(i,1);
         state.stars = Math.max(0, state.stars-0.2);
         state.reviewScore += 1; state.reviewCount++;
-        showToast('😡 Khách bỏ đi! -0.2 sao', 'error');
+        showToast('😡 Khách bỏ đi!', 'error');
         renderKhach();
       }
     }
     // Cập nhật thanh kiên nhẫn
     renderKhach();
+    // Cập nhật cook slots
+    for (var s=0;s<cookSlots.length;s++) {
+      var sl = cookSlots[s];
+      if (sl.busy) {
+        var el = now - sl.start;
+        var pct = Math.min(100, (el/sl.duration)*100);
+        var fill = document.getElementById('slot-fill-' + s);
+        if (fill) fill.style.width = pct + '%';
+        if (el >= sl.duration) finishSlotCook(sl);
+      }
+    }
     // Staff tự động
     for (var j=0;j<state.staff.length;j++) {
-      var s = state.staff[j];
-      var el = now - s.lastAction;
-      if (s.type==='phubep' && el>=8000) {
+      var st = state.staff[j];
+      var timeEl = now - st.lastAction;
+      // Phụ bếp: nấu phụ mỗi 12s
+      if (st.type==='phubep' && timeEl>=12000) {
         if (state.kho.mi>=1 && state.kho.thit>=1 && state.kho.rau>=1 && state.kho.ot>=1) {
-          state.kho.mi--; state.kho.thit--; state.kho.rau--; state.kho.ot--;
-          var sp = Math.min(7, state.level);
-          state.cookedBySpicy[sp] = (state.cookedBySpicy[sp]||0)+1;
-          state.totalCooked++; state.todayCooked++;
-          addXP(5); updateMission('cook',1);
-          s.lastAction = now; render();
-          showToast('👨‍🍳 Phụ bếp nấu 1 tô cấp ' + sp, 'success');
+          var freeSlot = null;
+          for (var x=0;x<cookSlots.length;x++) if (!cookSlots[x].busy) { freeSlot = cookSlots[x]; break; }
+          if (freeSlot) {
+            state.kho.mi--; state.kho.thit--; state.kho.rau--; state.kho.ot--;
+            var sp = Math.min(7, state.level);
+            freeSlot.busy = true;
+            freeSlot.spicy = sp;
+            freeSlot.start = now;
+            freeSlot.duration = getCookTime();
+            freeSlot.chefName = st.name;
+            st.lastAction = now;
+            st.working = true;
+            st.status = '🍜 Đang nấu ' + sp + '...';
+            render(); renderChefActivity(); renderStaff();
+            showToast('🧑‍🍳 ' + st.name + ' đang nấu!', 'success');
+          } else {
+            st.status = '⏳ Chờ bếp trống';
+          }
+        } else {
+          st.status = '⚠️ Thiếu nguyên liệu';
         }
       }
-      if (s.type==='phucvu' && el>=6000) {
-        var any = false;
-        for (var k=1;k<=7;k++) if ((state.cookedBySpicy[k]||0)>0) { any = k; break; }
-        if (any) {
-          state.cookedBySpicy[any]--;
-          var price = getMiPrice(any);
+      // Phục vụ: bán mỗi 8s
+      if (st.type==='phucvu' && timeEl>=8000) {
+        var anySpicy = 0;
+        for (var k=1;k<=7;k++) if ((state.cookedBySpicy[k]||0)>0) { anySpicy = k; break; }
+        if (anySpicy) {
+          state.cookedBySpicy[anySpicy]--;
+          var price = getMiPrice(anySpicy);
           state.money += price; state.todayEarn += price;
-          state.totalSold++; state.todaySold++;
+          state.totalSold++; state.todaySold++; state.weeklySold++;
           addXP(3); updateMission('sell',1);
-          s.lastAction = now; render();
-          showToast('💁 Phục vụ bán cấp ' + any, 'success');
+          st.lastAction = now;
+          st.working = true;
+          st.status = '💰 Bán cấp ' + anySpicy + ' +' + fmt(price);
+          render();
+          showToast('💁 ' + st.name + ' bán +' + fmt(price), 'success');
+        } else {
+          st.status = '⏳ Chờ mì';
         }
       }
-      if (s.type==='shipper' && el>=10000) {
+      // Shipper: giao mỗi 12s
+      if (st.type==='shipper' && timeEl>=12000) {
         if (state.orders.length > 0) {
           var o = state.orders[0];
           if ((state.cookedBySpicy[o.spicy]||0) >= o.qty) {
@@ -1179,28 +1162,91 @@ function startLoop() {
             state.totalDelivered++; state.todayDelivered++;
             addXP(8); updateMission('deliver',1);
             state.orders.splice(0,1);
-            s.lastAction = now; render();
-            showToast('🛵 Shipper giao đơn', 'success');
+            st.lastAction = now;
+            st.working = true;
+            st.status = '🛵 Giao đơn +' + fmt(o.price);
+            render();
+            showToast('🛵 ' + st.name + ' giao', 'success');
+          } else {
+            st.status = '⏳ Chờ mì';
           }
+        } else {
+          st.status = '⏳ Chờ đơn';
         }
       }
-      if (s.type==='bepTruong' && el>=6000) {
-        if (state.kho.mi>=2 && state.kho.thit>=2 && state.kho.rau>=2 && state.kho.ot>=2) {
-          state.kho.mi-=2; state.kho.thit-=2; state.kho.rau-=2; state.kho.ot-=2;
-          var sp2 = Math.min(7, state.level);
-          state.cookedBySpicy[sp2] = (state.cookedBySpicy[sp2]||0)+2;
-          state.totalCooked+=2; state.todayCooked+=2;
-          addXP(10); updateMission('cook',2);
-          s.lastAction = now; render();
-          showToast('👨‍🍳 Bếp trưởng nấu 2 tô', 'gold');
-        }
+      // Reset trạng thái working nếu không làm gì
+      if (st.working && timeEl > 2000) {
+        // Giữ hiển thị status một lúc rồi về chờ
       }
     }
     checkAchievements();
   }, 1000);
 }
 
-// =================== UI ===================
+// ===== MINIGAME =====
+function spinWheel() {
+  if (state.lastSpinDay === state.day) { showToast('Hôm nay đã quay rồi!', 'error'); return; }
+  state.lastSpinDay = state.day;
+  var wheel = byId('spin-wheel');
+  var rotation = 1440 + Math.floor(Math.random()*360);
+  wheel.style.transform = 'rotate(' + rotation + 'deg)';
+  setTimeout(function() {
+    var rewards = [
+      {type:'money', val:50000, label:'50k'},
+      {type:'money', val:100000, label:'100k'},
+      {type:'ingredient', val:10, label:'10 nguyên liệu'},
+      {type:'xp', val:50, label:'50 XP'},
+      {type:'decor', val:0, label:'Trang trí random'},
+      {type:'money', val:200000, label:'200k'}
+    ];
+    var r = rewards[Math.floor(Math.random()*rewards.length)];
+    if (r.type==='money') { state.money += r.val; showToast('💰 Nhận ' + fmt(r.val), 'gold'); }
+    else if (r.type==='ingredient') { for (var k in state.kho) state.kho[k] += 10; showToast('📦 Nhận 10 mỗi loại', 'gold'); }
+    else if (r.type==='xp') { addXP(50); showToast('⭐ Nhận 50 XP', 'gold'); }
+    else if (r.type==='decor') {
+      var notOwned = DECORS.filter(function(d){ return state.decors.indexOf(d.id) === -1; });
+      if (notOwned.length > 0) {
+        state.decors.push(notOwned[0].id);
+        showToast('🎨 Nhận ' + notOwned[0].name, 'gold');
+      } else { state.money += 100000; showToast('💰 Nhận 100k thay', 'gold'); }
+    }
+    showConfetti();
+    wheel.style.transform = 'rotate(0deg)';
+    render();
+  }, 3100);
+}
+
+var mgTimer = null, mgStarted = false, mgPosition = 0, mgDirection = 1;
+function playMiniGame() {
+  if (mgStarted) { stopMiniGame(true); return; }
+  mgStarted = true; mgPosition = 0; mgDirection = 1;
+  byId('btn-mg').textContent = 'DỪNG!';
+  byId('mg-status').textContent = 'Bấm đúng giữa vùng vàng!';
+  var speed = 3 + Math.random()*3;
+  mgTimer = setInterval(function() {
+    mgPosition += speed * mgDirection;
+    if (mgPosition >= 100) { mgPosition = 100; mgDirection = -1; }
+    if (mgPosition <= 0) { mgPosition = 0; mgDirection = 1; }
+    byId('mg-bar').style.width = mgPosition + '%';
+  }, 30);
+}
+function stopMiniGame(auto) {
+  clearInterval(mgTimer);
+  mgStarted = false;
+  byId('btn-mg').textContent = 'CHƠI LẠI';
+  var pos = mgPosition;
+  var score = 0;
+  if (pos >= 40 && pos <= 60) { score = 100000; byId('mg-status').textContent = '🎉 HOÀN HẢO! +100k'; }
+  else if (pos >= 30 && pos <= 70) { score = 50000; byId('mg-status').textContent = '👍 Tốt! +50k'; }
+  else if (pos >= 20 && pos <= 80) { score = 20000; byId('mg-status').textContent = '👌 Được! +20k'; }
+  else { score = 5000; byId('mg-status').textContent = '😅 Hơi lệch! +5k'; }
+  state.money += score;
+  addXP(20);
+  showConfetti();
+  render();
+}
+
+// ===== UI =====
 function showTab(name, el) {
   var panels = document.querySelectorAll('.panel');
   for (var i=0;i<panels.length;i++) panels[i].classList.remove('active');
@@ -1223,6 +1269,13 @@ function saveRename() {
   closeModal('modal-rename'); render();
   showToast('✏️ Đổi tên!', 'success');
 }
+function nextStoryChapter() {
+  var ch = state.chapter;
+  var story = STORIES[Math.min(ch, STORIES.length-1)];
+  byId('story-modal-title').textContent = story.title;
+  byId('story-modal-text').textContent = story.text;
+  openModal('modal-story');
+}
 function showToast(msg, type) {
   var t = document.getElementById('toast-global');
   if (!t) { t = document.createElement('div'); t.id='toast-global'; t.className='toast'; document.body.appendChild(t); }
@@ -1233,16 +1286,37 @@ function showToast(msg, type) {
   clearTimeout(t._timer);
   t._timer = setTimeout(function(){ t.classList.remove('show'); }, 2000);
 }
+function showConfetti() {
+  for (var i=0;i<30;i++) {
+    var c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.background = ['#ffc300','#e63946','#06a77d','#4a90e2','#9b59b6'][Math.floor(Math.random()*5)];
+    c.style.animationDelay = (Math.random()*0.5) + 's';
+    document.body.appendChild(c);
+    setTimeout(function(el){ return function(){ el.remove(); }; }(c), 3500);
+  }
+}
+function showCoinFly() {
+  var c = document.createElement('div');
+  c.className = 'coin-fly';
+  c.textContent = '💰';
+  c.style.left = (window.innerWidth/2) + 'px';
+  c.style.top = (window.innerHeight/2) + 'px';
+  document.body.appendChild(c);
+  setTimeout(function(){ c.remove(); }, 1000);
+}
 
-// =================== START ===================
+// ===== START =====
 state = loadGame();
 if (!state.missions || state.missions.length === 0) initMissions();
 if (!state.orders) state.orders = [];
+if (!state.messages) state.messages = [];
+recalcCookSlots();
 initOrders();
 render();
 startLoop();
 setInterval(saveGame, 30000);
-
-  </script>
+</script>
 </body>
 </html>
